@@ -8,11 +8,13 @@
     "react-scripts": "0.8.5"
   },
   "dependencies": {
+    "menubar": "^7.2.0",
     "react": "^16.1.1",
-    "react-dom": "^16.1.1"
+    "react-dom": "^16.1.1",
+    "styled-components": "^5.0.0"
   },
   "homepage": "./",
-  "main": "src/electron-starter.js",
+  "main": "src/main.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
