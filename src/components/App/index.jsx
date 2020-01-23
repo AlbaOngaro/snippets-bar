@@ -1,24 +1,46 @@
-import React from 'react';
-const remote = require('electron').remote
+import React, { Fragment } from "react";
+import styled, { createGlobalStyle } from "styled-components";
+
+import { Col, Row } from "../Layout/Grid";
+import Sidebar from "../Layout/Sidebar";
+import Header from "../Layout/Header";
+import Body from "../Layout/Body";
+import Footer from "../Layout/Footer";
+
+import styles from "./styles";
+
+const GlobalStyle = createGlobalStyle`
+	${styles.global}
+`;
+
+const Container = styled.div`
+  ${styles.Container}
+`;
 
 function App() {
+  const close = () => {
+    const remote = require("electron").remote;
+    const w = remote.getCurrentWindow();
+    w.close();
+  };
 
-	const handleClick = () => {
-		const w = remote.getCurrentWindow()
-		w.close()
-	}
-
-	return (
-		<div>
-			<div>
-				<h2>Welcome to React/Electron</h2>
-			</div>
-			<p>
-				Hello Electron!
-			</p>
-			<button onClick={handleClick}>close</button>
-		</div>
-	);
+  return (
+    <Fragment>
+      <GlobalStyle />
+      <Container>
+        <Row>
+          <Col width={35}>
+            <Sidebar />
+          </Col>
+          <Col width={65}>
+            <Header />
+            <Body />
+            <Footer />
+          </Col>
+        </Row>
+      </Container>
+    </Fragment>
+  );
 }
 
 export default App;
