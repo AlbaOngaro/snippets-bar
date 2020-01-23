@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
+import { SnippetsProvider } from "../../contexts";
+
 import { Col, Row } from "../Layout/Grid";
 import Sidebar from "../Layout/Sidebar";
 import Header from "../Layout/Header";
@@ -25,7 +27,7 @@ function App() {
   };
 
   return (
-    <Fragment>
+    <SnippetsProvider>
       <GlobalStyle />
       <Container>
         <Row>
@@ -39,7 +41,7 @@ function App() {
           </Col>
         </Row>
       </Container>
-    </Fragment>
+    </SnippetsProvider>
   );
 }
 

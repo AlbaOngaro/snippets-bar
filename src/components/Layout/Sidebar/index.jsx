@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 
-import Header from '../Header';
+import { SnippetsContext } from "../../../contexts";
+
+import Header from "../Header";
 
 import styles from "./styles";
 
@@ -9,8 +11,14 @@ const Sidebar = styled.div`
   ${styles.Sidebar}
 `;
 
-export default (props) => (
-	<Sidebar {...props}>
-		<Header />
-	</Sidebar>
-);
+export default props => {
+  const { snippets } = useContext(SnippetsContext);
+
+  return (
+    <Sidebar {...props}>
+      <Header />
+      <ul>{snippets && snippets.map(snippet => <li>{snippet}</li>)}</ul>
+      <button>add snippet</button>
+    </Sidebar>
+  );
+};
