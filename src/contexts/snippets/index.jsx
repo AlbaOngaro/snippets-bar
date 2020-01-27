@@ -5,35 +5,63 @@ import * as Database from "../../services/db";
 const SnippetsContext = createContext({
   snippets: new List(),
   addSnippet: () => {},
-  removeSnippet: () => {}
+  removeSnippet: () => {},
+  filterSnippets: () => {}
 });
 
 const SnippetsProvider = ({ children }) => {
   const [snippets, setSnippets] = useState(new List());
 
+  const getAllSnippetsRequest = async () => {
+	const db = await Database.get();
+	const snippets = await db.snippets.find().exec();
+
+	setSnippets(snippets || new List());
+  };
+
+  const addSnippetRequest = async snippet => {
+	const db = await Database.get();
+	await db.snippets.upsert(snippet);
+	
+	getAllSnippetsRequest();
+  }
+
+  const removeSnippetRequest = async id => {
+	const db = await Database.get();
+	await db.snippets.find().where('id').eq(id).remove();
+
+	getAllSnippetsRequest();
+  }
+
+  const filterSnippetsRequest = async term => {
+	const db = await Database.get();
+	const regexp = new RegExp(`.*${term}.*`, 'gi');
+	const snippets = await db.snippets.find({ name: { $regex: regexp }}).exec();
+
+	setSnippets(snippets || new List());
+  }
+
   useEffect(() => {
-    const getDb = async () => {
-      const db = await Database.get();
-      const snippets = await db.snippets.find().exec();
-
-      setSnippets(snippets || new List());
-    };
-
-    getDb();
+    getAllSnippetsRequest();
   }, [setSnippets]);
 
   const addSnippet = snippet => {
-    setSnippets(snippets.push(snippet));
+    addSnippetRequest(snippet);
   };
 
-  const removeSnippet = snippet => {
-    setSnippets(snippets.splice(snippets.indexOf(snippet), 1));
+  const removeSnippet = id => {
+    removeSnippetRequest(id);
   };
+
+  const filterSnippets = term => {
+	filterSnippetsRequest(term);
+  }
 
   const values = {
     snippets,
     addSnippet,
-    removeSnippet
+	removeSnippet,
+	filterSnippets
   };
 
   return (

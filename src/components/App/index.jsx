@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
 import { SnippetsProvider } from "../../contexts";
@@ -20,12 +20,6 @@ const Container = styled.div`
 `;
 
 function App() {
-  const close = () => {
-    const remote = require("electron").remote;
-    const w = remote.getCurrentWindow();
-    w.close();
-  };
-
   return (
     <SnippetsProvider>
       <GlobalStyle />

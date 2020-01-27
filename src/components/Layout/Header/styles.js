@@ -1,6 +1,6 @@
 export default {
-  Header: `
+  Header: ({ red }) =>`
 	height: 15%;
-	background: yellow;
+	${red ? 'background: red;' : ''}
   `
 };

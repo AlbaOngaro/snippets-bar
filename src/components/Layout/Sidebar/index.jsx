@@ -12,13 +12,30 @@ const Sidebar = styled.div`
 `;
 
 export default props => {
-  const { snippets } = useContext(SnippetsContext);
+	const { snippets, filterSnippets, removeSnippet } = useContext(SnippetsContext);
 
-  return (
-    <Sidebar {...props}>
-      <Header />
-      <ul>{snippets && snippets.map(snippet => <li>{snippet.get('name')}</li>)}</ul>
-      <button>add snippet</button>
-    </Sidebar>
-  );
+	return (
+		<Sidebar {...props}>
+			<Header search onChange={e => {
+				filterSnippets(e.target.value);
+			}}/>
+				<ul>
+					{snippets && 
+						snippets.map(snippet => (
+							<li>
+								{snippet.get('name')}
+								<button 
+									onClick={() => {
+										removeSnippet(snippet.get('id'))
+									}}
+								>
+									delete snippet
+								</button>
+							</li>
+						))
+					}
+				</ul>
+			<button>add snippet</button>
+		</Sidebar>
+	);
 };
