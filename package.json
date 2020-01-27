@@ -9,9 +9,12 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "immutable": "^4.0.0-rc.12",
+    "pouchdb-adapter-idb": "^7.1.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
+    "react-scripts": "3.3.0",
+    "rxdb": "^8.7.5",
+    "rxjs": "^6.5.4"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",

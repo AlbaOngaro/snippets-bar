@@ -17,8 +17,8 @@ const mb = menubar({
     : "public/icon-dark.png",
   browserWindow: {
     alwaysOnTop: process.env.NODE_ENV === "dev",
-    width: 700,
-    height: 400,
+    width: 600,
+    height: 350,
     webPreferences: {
       nodeIntegration: true
     }

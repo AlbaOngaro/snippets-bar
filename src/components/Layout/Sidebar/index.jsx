@@ -17,7 +17,7 @@ export default props => {
   return (
     <Sidebar {...props}>
       <Header />
-      <ul>{snippets && snippets.map(snippet => <li>{snippet}</li>)}</ul>
+      <ul>{snippets && snippets.map(snippet => <li>{snippet.get('name')}</li>)}</ul>
       <button>add snippet</button>
     </Sidebar>
   );

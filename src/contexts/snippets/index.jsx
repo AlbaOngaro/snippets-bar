@@ -1,19 +1,25 @@
 import React, { useState, useEffect, createContext } from "react";
-import { fromJS } from "immutable";
+import { List } from "immutable";
+import * as Database from "../../services/db";
 
 const SnippetsContext = createContext({
-  snippets: [],
+  snippets: new List(),
   addSnippet: () => {},
   removeSnippet: () => {}
 });
 
 const SnippetsProvider = ({ children }) => {
-  const [snippets, setSnippets] = useState(fromJS([]));
+  const [snippets, setSnippets] = useState(new List());
 
   useEffect(() => {
-    setTimeout(() => {
-      setSnippets(fromJS(["test", "test"]));
-    }, 1000);
+    const getDb = async () => {
+      const db = await Database.get();
+      const snippets = await db.snippets.find().exec();
+
+      setSnippets(snippets || new List());
+    };
+
+    getDb();
   }, [setSnippets]);
 
   const addSnippet = snippet => {
