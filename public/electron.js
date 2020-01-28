@@ -1,7 +1,7 @@
 const { menubar } = require("menubar");
 const path = require("path");
 const url = require("url");
-const { nativeTheme, systemPreferences } = require("electron");
+const { nativeTheme } = require("electron");
 require("dotenv").config();
 
 const mb = menubar({
@@ -26,15 +26,12 @@ const mb = menubar({
 });
 
 mb.on("ready", () => {
-  systemPreferences.subscribeNotification(
-    "AppleInterfaceThemeChangedNotification",
-    function theThemeHasChanged() {
-      mb.setOption(
-        "icon",
-        nativeTheme.shouldUseDarkColors
-          ? "public/icon-dark.png"
-          : "public/icon-light.png"
-      );
-    }
-  );
+	nativeTheme.on('updated', () => {
+		mb.setOption(
+			"icon",
+			nativeTheme.shouldUseDarkColors
+			  ? "public/icon-dark.png"
+			  : "public/icon-light.png"
+		  );
+	});
 });
