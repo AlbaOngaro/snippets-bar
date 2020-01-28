@@ -1,7 +1,7 @@
 const { menubar } = require("menubar");
 const path = require("path");
 const url = require("url");
-const { nativeTheme } = require("electron");
+const { nativeTheme, Menu } = require("electron");
 require("dotenv").config();
 
 const mb = menubar({
@@ -26,12 +26,25 @@ const mb = menubar({
 });
 
 mb.on("ready", () => {
-	nativeTheme.on('updated', () => {
-		mb.setOption(
-			"icon",
-			nativeTheme.shouldUseDarkColors
-			  ? "public/icon-dark.png"
-			  : "public/icon-light.png"
-		  );
-	});
+  nativeTheme.on("updated", () => {
+    mb.setOption(
+      "icon",
+      nativeTheme.shouldUseDarkColors
+        ? "public/icon-dark.png"
+        : "public/icon-light.png"
+    );
+  });
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: "Quit",
+      click: () => {
+        mb.app.quit();
+      }
+    }
+  ]);
+
+  mb.tray.on("right-click", () => {
+    mb.tray.popUpContextMenu(contextMenu);
+  });
 });

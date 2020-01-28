@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
-import { SnippetsProvider, ThemeProvider } from "../../contexts";
+import { SnippetsProvider, SnippetsContext, ThemeProvider } from "../../contexts";
 
 import { Col, Row } from "../Layout/Grid";
 import Sidebar from "../Layout/Sidebar";
@@ -20,25 +20,26 @@ const Container = styled.div`
 `;
 
 function App() {
-  return (
-	<SnippetsProvider>
-		<ThemeProvider>
-			<GlobalStyle />
-			<Container>
-				<Row>
-				<Col width={35}>
-					<Sidebar />
-				</Col>
-				<Col width={65}>
-					<Header />
-					<Body />
-					<Footer />
-				</Col>
-				</Row>
-			</Container>
-	  </ThemeProvider>
-    </SnippetsProvider>
-  );
+	const { snippet } = useContext(SnippetsContext);
+	return (
+		<SnippetsProvider>
+			<ThemeProvider>
+				<GlobalStyle />
+				<Container>
+					<Row>
+					<Col width={35}>
+						<Sidebar />
+					</Col>
+					<Col width={65}>
+						{!snippet.isEmpty() && <Header />}
+						<Body full={snippet.isEmpty()}/>
+						<Footer />
+					</Col>
+					</Row>
+				</Container>
+		</ThemeProvider>
+		</SnippetsProvider>
+	);
 }
 
 export default App;
