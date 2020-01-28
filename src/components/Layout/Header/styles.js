@@ -1,6 +1,9 @@
+import { darken } from 'polished';
+
 export default {
-  Header: ({ red }) =>`
+  Header: ({ theme }) =>`
 	height: 15%;
-	${red ? 'background: red;' : ''}
+	background: ${darken(0.02, theme.bg)};
+	color: ${theme.fg};
   `
 };

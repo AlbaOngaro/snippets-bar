@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+
+import { ThemeContext } from '../../../contexts';
 
 import Input from '../../Elements/Input';
 
@@ -10,10 +12,12 @@ const Header = styled.div`
 `;
 
 export default ({ search, onChange, ...rest }) => {
+	const theme = useContext(ThemeContext);
+
 	return (
-		<Header {...rest}>
+		<Header theme={theme} {...rest}>
 			{search && (
-				<Input onChange={onChange} />
+				<Input onChange={onChange} placeholder="search" />
 			)}
 		</Header>
 	);

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 
-import { SnippetsContext } from "../../../contexts";
+import { SnippetsContext, ThemeContext } from "../../../contexts";
 
 import Header from "../Header";
 
@@ -12,30 +12,23 @@ const Sidebar = styled.div`
 `;
 
 export default props => {
-	const { snippets, filterSnippets, removeSnippet } = useContext(SnippetsContext);
+	const { snippets, filterSnippets } = useContext(SnippetsContext);
+	const { theme } = useContext(ThemeContext);
 
 	return (
-		<Sidebar {...props}>
+		<Sidebar theme={theme} {...props}>
 			<Header search onChange={e => {
 				filterSnippets(e.target.value);
 			}}/>
-				<ul>
-					{snippets && 
-						snippets.map(snippet => (
-							<li>
-								{snippet.get('name')}
-								<button 
-									onClick={() => {
-										removeSnippet(snippet.get('id'))
-									}}
-								>
-									delete snippet
-								</button>
-							</li>
-						))
-					}
-				</ul>
-			<button>add snippet</button>
+			<ul>
+				{snippets && 
+					snippets.map(snippet => (
+						<li>
+							{snippet.get('name')}
+						</li>
+					))
+				}
+			</ul>
 		</Sidebar>
 	);
 };

@@ -1,5 +1,12 @@
 export default {
   global: `
+  	@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+	
+	* {
+		font-family: 'Raleway', sans-serif;
+		box-sizing: border-box;
+	}
+
 	html,
 	body {
 		padding: 0;

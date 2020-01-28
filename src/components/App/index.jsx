@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
-import { SnippetsProvider } from "../../contexts";
+import { SnippetsProvider, ThemeProvider } from "../../contexts";
 
 import { Col, Row } from "../Layout/Grid";
 import Sidebar from "../Layout/Sidebar";
@@ -21,20 +21,22 @@ const Container = styled.div`
 
 function App() {
   return (
-    <SnippetsProvider>
-      <GlobalStyle />
-      <Container>
-        <Row>
-          <Col width={35}>
-            <Sidebar />
-          </Col>
-          <Col width={65}>
-            <Header />
-            <Body />
-            <Footer />
-          </Col>
-        </Row>
-      </Container>
+	<SnippetsProvider>
+		<ThemeProvider>
+			<GlobalStyle />
+			<Container>
+				<Row>
+				<Col width={35}>
+					<Sidebar />
+				</Col>
+				<Col width={65}>
+					<Header />
+					<Body />
+					<Footer />
+				</Col>
+				</Row>
+			</Container>
+	  </ThemeProvider>
     </SnippetsProvider>
   );
 }
