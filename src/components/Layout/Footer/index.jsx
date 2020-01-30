@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import styled from "styled-components";
 
-import { ThemeContext } from '../../../contexts';
+import { ThemeContext, SnippetsContext } from "../../../contexts";
 
-import Button from '../../Elements/Button';
-import { Copy, Edit, Delete, Plus } from '../../../assets/svg';
+import Button from "../../Elements/Button";
+import { Copy, Edit, Delete, Plus } from "../../../assets/svg";
 
 import styles from "./styles";
 
@@ -12,29 +12,34 @@ const Footer = styled.div`
   ${styles.Footer}
 `;
 
-export default (props) => {
-	// const close = () => {
-	// 	const remote = require("electron").remote;
-	// 	const w = remote.getCurrentWindow();
-	// 	w.close();
-	// };
+export default props => {
+  const theme = useContext(ThemeContext);
+  const { snippet, removeSnippet } = useContext(SnippetsContext);
 
-	const theme = useContext(ThemeContext);
+  return (
+    <Footer theme={theme} {...props}>
+      {snippet.isEmpty() && (
+        <Button>
+          <Plus /> new
+        </Button>
+      )}
 
-	return (
-		<Footer theme={theme} {...props}>
-			<Button>
-				<Copy /> copy
-			</Button>
-			<Button>
-				<Edit /> edit
-			</Button>
-			<Button>
-				<Delete /> delete
-			</Button>
-			<Button> 
-				<Plus/> new
-			</Button>
-		</Footer>
-	);
+      {!snippet.isEmpty() && (
+        <Fragment>
+          <Button>
+            <Copy /> copy
+          </Button>
+          <Button>
+            <Edit /> edit
+          </Button>
+          <Button onClick={() => removeSnippet(snippet.get("id"))}>
+            <Delete /> delete
+          </Button>
+          <Button>
+            <Plus /> new
+          </Button>
+        </Fragment>
+      )}
+    </Footer>
+  );
 };

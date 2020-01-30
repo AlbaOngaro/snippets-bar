@@ -1,20 +1,21 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components';
+import React, { useContext } from "react";
+import styled from "styled-components";
 
-import { ThemeContext } from '../../../contexts';
+import { ThemeContext, SnippetsContext } from "../../../contexts";
 
-import styles from './styles';
+import styles from "./styles";
 
 const Body = styled.div`
-	${styles.Body}
+  ${styles.Body}
 `;
 
 export default ({ children, ...props }) => {
-	const theme = useContext(ThemeContext);
+  const theme = useContext(ThemeContext);
+  const { snippet } = useContext(SnippetsContext);
 
-	return (
-		<Body theme={theme} {...props}>
-			{children}
-		</Body>
-	);
+  return (
+    <Body theme={theme} {...props}>
+      {!snippet.isEmpty() && <code>{snippet.get("contents")}</code>}
+    </Body>
+  );
 };

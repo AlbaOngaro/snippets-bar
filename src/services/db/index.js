@@ -1,4 +1,5 @@
 import * as RxDB from "rxdb";
+import md5 from "md5";
 
 RxDB.plugin(require("pouchdb-adapter-idb"));
 
@@ -22,6 +23,11 @@ const _create = async () => {
   // create collections
   console.log("DatabaseService: create collections");
   await Promise.all(collections.map(colData => db.collection(colData)));
+
+  // hooks
+  db.snippets.preInsert(doc => {
+    doc.id = md5(`${doc.name}-${doc.contents}`);
+  }, false);
 
   return db;
 };

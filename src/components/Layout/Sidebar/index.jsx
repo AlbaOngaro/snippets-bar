@@ -12,23 +12,34 @@ const Sidebar = styled.div`
 `;
 
 export default props => {
-	const { snippets, filterSnippets } = useContext(SnippetsContext);
-	const { theme } = useContext(ThemeContext);
+  const { snippets, filterSnippets, selectSnippet } = useContext(
+    SnippetsContext
+  );
+  const { theme } = useContext(ThemeContext);
 
-	return (
-		<Sidebar theme={theme} {...props}>
-			<Header search onChange={e => {
-				filterSnippets(e.target.value);
-			}}/>
-			<ul>
-				{snippets && 
-					snippets.map(snippet => (
-						<li>
-							{snippet.get('name')}
-						</li>
-					))
-				}
-			</ul>
-		</Sidebar>
-	);
+  debugger;
+
+  return (
+    <Sidebar theme={theme} {...props}>
+      <Header
+        search
+        onChange={e => {
+          filterSnippets(e.target.value);
+        }}
+      />
+      <ul>
+        {!snippets.isEmpty() &&
+          snippets.map(snippet => (
+            <li
+              key={snippet.get("id")}
+              onClick={() => selectSnippet(snippet.get("id"))}
+            >
+              {snippet.get("name")}
+            </li>
+          ))}
+
+        {snippets.isEmpty() && <li>No snippets yet</li>}
+      </ul>
+    </Sidebar>
+  );
 };

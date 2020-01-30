@@ -15,41 +15,61 @@ const SnippetsProvider = ({ children }) => {
   const [snippet, setSnippet] = useState(new Map());
 
   const getAllSnippetsRequest = async () => {
-	const db = await Database.get();
-	const snippets = await db.snippets.find().exec();
-
-	setSnippets(snippets || new List());
+    const db = await Database.get();
+    db.snippets.find().$.subscribe(snippets => {
+      setSnippets(new List(snippets));
+    });
   };
 
   const addSnippetRequest = async snippet => {
-	const db = await Database.get();
-	await db.snippets.upsert(snippet);
-	
-	getAllSnippetsRequest();
-  }
+    const db = await Database.get();
+    await db.snippets.upsert(snippet);
+  };
 
   const removeSnippetRequest = async id => {
-	const db = await Database.get();
-	await db.snippets.find().where('id').eq(id).remove();
-
-	getAllSnippetsRequest();
-  }
+    const db = await Database.get();
+    await db.snippets
+      .find()
+      .where("id")
+      .eq(id)
+      .remove();
+  };
 
   const filterSnippetsRequest = async term => {
-	const db = await Database.get();
-	const regexp = new RegExp(`.*${term}.*`, 'gi');
-	const snippets = await db.snippets.find({ name: { $regex: regexp }}).exec();
+    const db = await Database.get();
+    const regexp = new RegExp(`.*${term}.*`, "gi");
+    const snippets = await db.snippets
+      .find({ name: { $regex: regexp } })
+      .exec();
 
-	setSnippets(snippets || new List());
-  }
+    setSnippets(new List(snippets));
+  };
 
   const getSingleSnippetRequest = async id => {
-	const db = await Database.get();
-	const snippet = await db.snippets.find().where('id').eq(id);
-	setSnippet(snippet);
-  }
+    const db = await Database.get();
+
+    db.snippets
+      .findOne()
+      .where("id")
+      .eq(id)
+      .$.subscribe(snippet => setSnippet(new Map(snippet.toJSON())));
+  };
 
   useEffect(() => {
+    (async () => {
+      const db = await Database.get();
+
+      db.snippets.bulkInsert([
+        {
+          name: "Test",
+          contents: "Test Contents"
+        },
+        {
+          name: "Prod",
+          contents: "Prod Contents"
+        }
+      ]);
+    })();
     getAllSnippetsRequest();
   }, [setSnippets]);
 
@@ -62,20 +82,20 @@ const SnippetsProvider = ({ children }) => {
   };
 
   const filterSnippets = term => {
-	filterSnippetsRequest(term);
-  }
+    filterSnippetsRequest(term);
+  };
 
   const selectSnippet = id => {
-	getSingleSnippetRequest(id);
-  }
+    getSingleSnippetRequest(id);
+  };
 
   const values = {
     snippets,
     addSnippet,
-	removeSnippet,
-	filterSnippets,
-	snippet,
-	selectSnippet,
+    removeSnippet,
+    filterSnippets,
+    snippet,
+    selectSnippet
   };
 
   return (

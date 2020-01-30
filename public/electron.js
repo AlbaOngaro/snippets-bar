@@ -2,6 +2,11 @@ const { menubar } = require("menubar");
 const path = require("path");
 const url = require("url");
 const { nativeTheme, Menu } = require("electron");
+const {
+  default: installExtension,
+  REACT_DEVELOPER_TOOLS
+} = require("electron-devtools-installer");
+
 require("dotenv").config();
 
 const mb = menubar({
@@ -26,6 +31,16 @@ const mb = menubar({
 });
 
 mb.on("ready", () => {
+  if (process.env.NODE_ENV === "dev") {
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then(name => console.log(`Added Extension:  ${name}`))
+      .catch(err => console.log("An error occurred: ", err));
+
+    installExtension("hgldghadipiblonfkkicmgcbbijnpeog")
+      .then(name => console.log(`Added Extension:  ${name}`))
+      .catch(err => console.log("An error occurred: ", err));
+  }
+
   nativeTheme.on("updated", () => {
     mb.setOption(
       "icon",
