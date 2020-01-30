@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-import { List, Map } from "immutable";
+import { List, Map, fromJS } from "immutable";
 import * as Database from "../../services/db";
 
 const SnippetsContext = createContext({
@@ -16,8 +16,17 @@ const SnippetsProvider = ({ children }) => {
 
   const getAllSnippetsRequest = async () => {
     const db = await Database.get();
-    db.snippets.find().$.subscribe(snippets => {
-      setSnippets(new List(snippets));
+    db.snippets.find().$.subscribe(documents => {
+      const snippets = fromJS(
+        documents.reduce(
+          (acc, curr, idx) => [...acc, new Map(curr.toJSON())],
+          []
+        )
+      );
+      const snippet = snippets.first(new Map());
+
+      setSnippets(snippets);
+      setSnippet(snippet);
     });
   };
 
@@ -48,28 +57,16 @@ const SnippetsProvider = ({ children }) => {
   const getSingleSnippetRequest = async id => {
     const db = await Database.get();
 
-    db.snippets
+    const snippet = await db.snippets
       .findOne()
       .where("id")
       .eq(id)
-      .$.subscribe(snippet => setSnippet(new Map(snippet.toJSON())));
+      .exec();
+
+    setSnippet(!snippet ? new Map() : new Map(snippet.toJSON()));
   };
 
   useEffect(() => {
-    (async () => {
-      const db = await Database.get();
-
-      db.snippets.bulkInsert([
-        {
-          name: "Test",
-          contents: "Test Contents"
-        },
-        {
-          name: "Prod",
-          contents: "Prod Contents"
-        }
-      ]);
-    })();
     getAllSnippetsRequest();
   }, [setSnippets]);
 

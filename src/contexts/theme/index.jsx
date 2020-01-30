@@ -15,22 +15,22 @@ const themes = {
   dark
 };
 
-const ThemeProvider = ({ children}) => {
-	const { nativeTheme } = require("electron").remote;
-	const [theme, setTheme] = useState('dark');
+const ThemeProvider = ({ children }) => {
+  const { nativeTheme } = require("electron").remote;
+  const [theme, setTheme] = useState("dark");
 
-	const updateTheme = useCallback(() => {
-		const theme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light';
-		setTheme(theme);
-	}, [nativeTheme.shouldUseDarkColors]);
+  const updateTheme = useCallback(() => {
+    const theme = nativeTheme.shouldUseDarkColors ? "dark" : "light";
+    setTheme(theme);
+  }, [nativeTheme.shouldUseDarkColors]);
 
-	useEffect(() => {
-		updateTheme();
-	}, [updateTheme]);
+  useEffect(() => {
+    updateTheme();
+  }, [updateTheme]);
 
-	nativeTheme.on('updated', updateTheme);
-	
-  	return <Provider theme={themes[theme]}>{children}</Provider>
+  nativeTheme.on("updated", updateTheme);
+
+  return <Provider theme={themes[theme]}>{children}</Provider>;
 };
 
 export { ThemeContext, ThemeProvider };

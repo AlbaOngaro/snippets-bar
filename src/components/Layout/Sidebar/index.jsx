@@ -17,8 +17,6 @@ export default props => {
   );
   const { theme } = useContext(ThemeContext);
 
-  debugger;
-
   return (
     <Sidebar theme={theme} {...props}>
       <Header
