@@ -19,7 +19,7 @@ const SnippetsProvider = ({ children }) => {
     db.snippets.find().$.subscribe(documents => {
       const snippets = fromJS(
         documents.reduce(
-          (acc, curr, idx) => [...acc, new Map(curr.toJSON())],
+          (acc, curr) => [...acc, new Map(curr.toJSON())],
           []
         )
       );
