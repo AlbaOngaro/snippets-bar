@@ -26,6 +26,8 @@ const _create = async () => {
 
   // hooks
   db.snippets.preInsert(doc => {
+	doc.editing = false;
+	doc.saved = true;
     doc.id = md5(`${doc.name}-${doc.contents}`);
   }, false);
 

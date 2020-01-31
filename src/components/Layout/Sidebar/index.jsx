@@ -12,7 +12,7 @@ const Sidebar = styled.div`
 `;
 
 export default props => {
-  const { snippets, filterSnippets, selectSnippet } = useContext(
+  const { snippets, snippet, filterSnippets, getSnippetById } = useContext(
     SnippetsContext
   );
   const { theme } = useContext(ThemeContext);
@@ -30,13 +30,13 @@ export default props => {
           snippets.map(snippet => (
             <li
               key={snippet.get("id")}
-              onClick={() => selectSnippet(snippet.get("id"))}
+              onClick={() => getSnippetById(snippet.get("id"))}
             >
               {snippet.get("name")}
             </li>
           ))}
 
-        {snippets.isEmpty() && <li>No snippets yet</li>}
+        {snippets.isEmpty() && snippet.isEmpty() && <li>No snippets yet</li>}
       </ul>
     </Sidebar>
   );

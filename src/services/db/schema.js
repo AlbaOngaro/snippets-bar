@@ -13,7 +13,15 @@ const snippetsSchema = {
     },
     contents: {
       type: "string"
-    },
+	},
+	editing: {
+		type: "boolean",
+		default: false,
+	},
+	saved: {
+		type: "boolean",
+		default: true,
+	},
     tags: {
       type: ["array", "null"],
       items: {

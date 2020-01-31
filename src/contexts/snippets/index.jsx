@@ -23,10 +23,9 @@ const SnippetsProvider = ({ children }) => {
           []
         )
       );
-      const snippet = snippets.first(new Map());
+      
 
       setSnippets(snippets);
-      setSnippet(snippet);
     });
   };
 
@@ -54,7 +53,7 @@ const SnippetsProvider = ({ children }) => {
     setSnippets(new List(snippets));
   };
 
-  const getSingleSnippetRequest = async id => {
+  const getSingleSnippetByIdRequest = async id => {
     const db = await Database.get();
 
     const snippet = await db.snippets
@@ -66,8 +65,24 @@ const SnippetsProvider = ({ children }) => {
     setSnippet(!snippet ? new Map() : new Map(snippet.toJSON()));
   };
 
+  const getDefaultSnippetRequest = async () => {
+	const db = await Database.get();
+    db.snippets.find().$.subscribe(documents => {
+      const snippets = fromJS(
+        documents.reduce(
+          (acc, curr) => [...acc, new Map(curr.toJSON())],
+          []
+        )
+      );
+	  const snippet = snippets.first(new Map());
+
+      setSnippet(snippet);
+    });
+  }
+
   useEffect(() => {
-    getAllSnippetsRequest();
+	getAllSnippetsRequest();
+	getDefaultSnippetRequest();
   }, [setSnippets]);
 
   const addSnippet = snippet => {
@@ -82,17 +97,34 @@ const SnippetsProvider = ({ children }) => {
     filterSnippetsRequest(term);
   };
 
-  const selectSnippet = id => {
-    getSingleSnippetRequest(id);
+  const getDefaultSnippet = () => {
+	getDefaultSnippetRequest();
+  }
+
+  const getSnippetById = id => {
+    getSingleSnippetByIdRequest(id);
   };
+
+  const updateSnippet = draft => {
+	  const snippet =  new Map({
+		  name: '',
+		  contents: '',
+		  editing: true,
+		  saved: false,
+	  }).merge(draft);
+
+	  setSnippet(snippet);
+  }
 
   const values = {
     snippets,
     addSnippet,
     removeSnippet,
     filterSnippets,
-    snippet,
-    selectSnippet
+	snippet,
+	getDefaultSnippet,
+	getSnippetById,
+	updateSnippet,
   };
 
   return (
