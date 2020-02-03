@@ -8,7 +8,7 @@ import Body from "./Body";
 import Footer from "./Footer";
 
 const Layout = () => {
-	const { snippet } = useContext(SnippetsContext);
+	const { snippet, updateSnippet } = useContext(SnippetsContext);
 
 	return (
 		<Row>
@@ -16,7 +16,14 @@ const Layout = () => {
 				<Sidebar />
 			</Col>
 			<Col width={65}>
-				{!snippet.isEmpty() && <Header />}
+				{!snippet.isEmpty() && (
+					<Header 
+						placeholder="snippet name" 
+						onChange={name => updateSnippet({
+							name,
+						})}
+					/>
+				)}
 				<Body full={snippet.isEmpty()}/>
 				<Footer />
 			</Col>

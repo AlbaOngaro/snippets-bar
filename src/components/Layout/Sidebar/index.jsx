@@ -21,8 +21,8 @@ export default props => {
     <Sidebar theme={theme} {...props}>
       <Header
         search
-        onChange={e => {
-          filterSnippets(e.target.value);
+        onSearch={term => {
+          filterSnippets(term);
         }}
       />
       <ul>

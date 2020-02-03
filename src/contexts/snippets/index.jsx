@@ -3,11 +3,14 @@ import { List, Map, fromJS } from "immutable";
 import * as Database from "../../services/db";
 
 const SnippetsContext = createContext({
-  snippets: new List(),
-  snippet: new Map(),
-  addSnippet: () => {},
-  removeSnippet: () => {},
-  filterSnippets: () => {}
+	snippets: new List(),
+    addSnippet: () => {},
+    removeSnippet: () => {},
+    filterSnippets: () => {},
+	snippet: new Map(),
+	getDefaultSnippet: () => {},
+	getSnippetById: () => {},
+	updateSnippet: () => {},
 });
 
 const SnippetsProvider = ({ children }) => {
@@ -111,7 +114,9 @@ const SnippetsProvider = ({ children }) => {
 		  contents: '',
 		  editing: true,
 		  saved: false,
-	  }).merge(draft);
+	  }).merge(Map.isMap(draft) ? draft : new Map(draft));
+
+	  debugger;
 
 	  setSnippet(snippet);
   }
