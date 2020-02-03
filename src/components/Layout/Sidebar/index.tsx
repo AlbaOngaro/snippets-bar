@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, ChangeEvent } from "react";
 import styled from "styled-components";
 
 import { SnippetsContext, ThemeContext } from "../../../contexts";
@@ -6,12 +6,15 @@ import { SnippetsContext, ThemeContext } from "../../../contexts";
 import Header from "../Header";
 
 import styles from "./styles";
+import { Snippet } from "../../../contexts/snippets/types";
 
 const Sidebar = styled.div`
   ${styles.Sidebar}
 `;
 
-export default props => {
+interface Props {};
+
+export default (props: Props) => {
   const { snippets, snippet, filterSnippets, getSnippetById } = useContext(
     SnippetsContext
   );
@@ -20,22 +23,27 @@ export default props => {
   return (
     <Sidebar theme={theme} {...props}>
       <Header
-        onChange={term => {
-          filterSnippets(term);
-        }}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+			if (!!filterSnippets) {
+				filterSnippets(e.target.value);
+			}
+		}}
       />
       <ul>
-        {!snippets.isEmpty() &&
-          snippets.map(snippet => (
+        {!!snippets && !snippets.isEmpty() && snippets.map((snippet: Snippet | Map<any, any>) => (
             <li
               key={snippet.get("id")}
-              onClick={() => getSnippetById(snippet.get("id"))}
+              onClick={() => {
+				  if (!!getSnippetById) {
+					getSnippetById(snippet.get("id"))
+				  }
+			  }}
             >
               {snippet.get("name")}
             </li>
           ))}
 
-        {snippets.isEmpty() && snippet.isEmpty() && <li>No snippets yet</li>}
+        {!!snippets && snippets.isEmpty() && !!snippet && snippet.isEmpty() && <li>No snippets yet</li>}
       </ul>
     </Sidebar>
   );

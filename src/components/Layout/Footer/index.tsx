@@ -13,19 +13,25 @@ const Footer = styled.div`
   ${styles.Footer}
 `;
 
-export default props => {
+interface Props {};
+
+export default (props: Props) => {
   const theme = useContext(ThemeContext);
   const { snippet, getDefaultSnippet, removeSnippet, updateSnippet,  } = useContext(SnippetsContext);
 
   return (
     <Footer theme={theme} {...props}>
-      {snippet.isEmpty() && !snippet.get('editing') && (
-        <Button onClick={() => updateSnippet(new Map({ name: '', contents: '' }))}>
+      {!!snippet && snippet.isEmpty() && !snippet.get('editing') && (
+        <Button onClick={() => {
+			if (!!updateSnippet) {
+				updateSnippet(Map({ name: '', contents: '' }));
+			}
+		}}>
           <Plus /> new
         </Button>
       )}
 
-	  {!snippet.isEmpty() && snippet.get('editing') && (
+	  {!!snippet && !snippet.isEmpty() && snippet.get('editing') && (
 		<Fragment>
 			<Button>
 				<Save /> save
@@ -36,7 +42,7 @@ export default props => {
 		</Fragment>
       )}
 
-      {!snippet.isEmpty() && snippet.get('saved') && (
+      {!!snippet && !snippet.isEmpty() && snippet.get('saved') && (
         <Fragment>
           <Button>
             <Copy /> copy
@@ -44,7 +50,11 @@ export default props => {
           <Button>
             <Edit /> edit
           </Button>
-          <Button onClick={() => removeSnippet(snippet.get("id"))}>
+          <Button onClick={() => {
+			  if (!!removeSnippet) {
+				removeSnippet(snippet.get("id"));
+			  }
+		  }}>
             <Delete /> delete
           </Button>
           <Button>

@@ -1,6 +1,8 @@
 import React from 'react';
 
-export default props => (
+interface Props {};
+
+export default (props: Props) => (
 	<svg
 		height="448pt"
 		viewBox="0 0 448 448"

@@ -1,5 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, ReactNode } from "react";
 import styled from "styled-components";
+
+import { SnippetsContextInterface } from "../../../contexts/snippets/types";
 
 import { ThemeContext, SnippetsContext } from "../../../contexts";
 
@@ -9,9 +11,16 @@ const Body = styled.div`
   ${styles.Body}
 `;
 
-export default ({ children, ...props }) => {
+interface Props {
+  children?: ReactNode;
+  full?: boolean;
+}
+
+export default ({ children, ...props }: Props) => {
   const theme = useContext(ThemeContext);
-  const { snippet } = useContext(SnippetsContext);
+  const { snippet }: Partial<SnippetsContextInterface> = useContext(
+    SnippetsContext
+  );
 
   return (
     <Body theme={theme} {...props}>

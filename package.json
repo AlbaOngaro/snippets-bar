@@ -8,6 +8,12 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
+    "@types/jest": "^25.1.1",
+    "@types/md5": "^2.1.33",
+    "@types/node": "^13.7.0",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.5",
+    "@types/styled-components": "^4.4.2",
     "immutable": "^4.0.0-rc.12",
     "md5": "^2.2.1",
     "polished": "^3.4.3",
@@ -16,7 +22,8 @@
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0",
     "rxdb": "^8.7.5",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.5.4",
+    "typescript": "^3.7.5"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
@@ -30,7 +37,7 @@
     "styled-components": "^5.0.0"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "start": "react-app-rewired start --strictNullChecks=false --isolatedModules=false",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",

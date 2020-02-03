@@ -9,7 +9,12 @@ const Input = styled.input`
 	${styles.Input}
 `;
 
-export default props => {
+interface Props {
+	onChange?: any,
+	placeholder: string,
+}
+
+export default ({ onChange, placeholder, ...rest }: Props) => {
 	const theme = useContext(ThemeContext);
-	return <Input theme={theme} {...props}></Input>
+	return <Input onChange={onChange} placeholder={placeholder} theme={theme} {...rest}></Input>
 }
