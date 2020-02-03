@@ -1,5 +1,11 @@
+import { Theme } from '../../../contexts/theme/types';
+
+interface Props {
+	theme: Theme,
+}
+
 export default {
-  Button: ({ theme }) => `
+  Button: ({ theme }: Props) => `
   	background: transparent;
 	border: 0;
 	color: ${theme.fg};

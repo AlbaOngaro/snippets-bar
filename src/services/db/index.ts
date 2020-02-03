@@ -6,11 +6,11 @@ RxDB.plugin(require("pouchdb-adapter-idb"));
 const collections = [
   {
     name: "snippets",
-    schema: require("./schema.js").default
+    schema: require("./schema.ts").default
   }
 ];
 
-let dbPromise = null;
+let dbPromise: Promise<any>;
 
 const _create = async () => {
   console.log("DatabaseService: creating database..");
@@ -26,8 +26,8 @@ const _create = async () => {
 
   // hooks
   db.snippets.preInsert(doc => {
-	doc.editing = false;
-	doc.saved = true;
+    doc.editing = false;
+    doc.saved = true;
     doc.id = md5(`${doc.name}-${doc.contents}`);
   }, false);
 

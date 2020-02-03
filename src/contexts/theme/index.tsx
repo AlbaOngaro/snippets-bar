@@ -1,21 +1,26 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, ReactNode } from "react";
 import { ThemeContext, ThemeProvider as Provider } from "styled-components";
+import { Theme, Themes } from './types';
 
-const light = {
+const light: Theme = {
   bg: "#f2f2f2",
   fg: "#262626"
 };
-const dark = {
+const dark: Theme = {
   bg: "#262626",
   fg: "#f2f2f2"
 };
 
-const themes = {
+const themes: Themes = {
   light,
   dark
 };
 
-const ThemeProvider = ({ children }) => {
+interface Props {
+	children: ReactNode,
+}
+
+const ThemeProvider = ({ children }: Props) => {
   const { nativeTheme } = require("electron").remote;
   const [theme, setTheme] = useState("dark");
 
