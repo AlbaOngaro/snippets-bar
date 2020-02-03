@@ -20,8 +20,7 @@ export default props => {
   return (
     <Sidebar theme={theme} {...props}>
       <Header
-        search
-        onSearch={term => {
+        onChange={term => {
           filterSnippets(term);
         }}
       />
