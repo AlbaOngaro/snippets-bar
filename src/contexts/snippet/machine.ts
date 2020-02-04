@@ -3,7 +3,6 @@ import { Machine, assign } from 'xstate';
 import { Snippet, Draft } from '../../types/snippets';
 import { fromJS, Map } from 'immutable';
 
-
 export interface SnippetContextType {
 	snippet: Snippet | Draft,
 	editing: boolean,
@@ -17,10 +16,16 @@ export interface SnippetStateSchema {
 	}
 };
 
+export enum Events {
+	EDIT = 'EDIT',
+	LOADED = 'LOADED',
+	SAVED = 'SAVED',
+}
+
 export type SnippetEvent = 
-	{ type: 'EDIT', snippet: Snippet | Draft } | 
-	{ type: 'LOADED', snippet: Snippet | Draft } | 
-	{ type: 'SAVED', snippet: Snippet }; 
+	{ type: Events.EDIT, snippet: Snippet | Draft } | 
+	{ type: Events.LOADED, snippet: Snippet | Draft } | 
+	{ type: Events.SAVED, snippet: Snippet }; 
 
 const snippetMachine = Machine<SnippetContextType, SnippetStateSchema, SnippetEvent>({
 	id: 'snippet',

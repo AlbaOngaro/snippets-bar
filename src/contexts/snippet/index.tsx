@@ -2,7 +2,7 @@ import React, { useEffect, createContext, ReactNode } from "react";
 import { List, Map, fromJS } from "immutable";
 import { useMachine } from "@xstate/react";
 
-import { snippetMachine } from "./machine";
+import { snippetMachine, Events } from "./machine";
 import * as Database from "../../services/db";
 
 import {
@@ -30,7 +30,7 @@ const SnippetProvider = ({ children }: Props) => {
       .eq(id)
       .exec();
 
-    send({ type: "LOADED", snippet });
+    send({ type: Events.LOADED, snippet });
   };
 
   const getDefaultSnippetRequest = async () => {
@@ -44,7 +44,7 @@ const SnippetProvider = ({ children }: Props) => {
 
       const snippet: Snippet | Draft = snippets.first(Map());
 
-      send({ type: "LOADED", snippet });
+      send({ type: Events.LOADED, snippet });
     });
   };
 
@@ -60,7 +60,7 @@ const SnippetProvider = ({ children }: Props) => {
     getSingleSnippetByIdRequest(id);
   };
 
-  const updateSnippet = (draft: Draft): void => {
+  const editSnippet = (draft: Draft): void => {
     const snippet = Map({
       name: "",
       contents: "",
@@ -68,14 +68,14 @@ const SnippetProvider = ({ children }: Props) => {
       saved: false
     }).merge(Map.isMap(draft) ? draft : fromJS(draft));
 
-    send({ type: "EDIT", snippet });
+    send({ type: Events.EDIT, snippet });
   };
 
   const values: SnippetContextInterface = {
     snippet: current.context.snippet,
     getDefaultSnippet,
     getSnippetById,
-    updateSnippet
+    editSnippet
   };
 
   return (

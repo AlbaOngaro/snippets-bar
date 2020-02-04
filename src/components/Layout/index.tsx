@@ -10,10 +10,9 @@ import Footer from "./Footer";
 import { SnippetContextInterface } from "../../types/snippets";
 
 const Layout = () => {
-  const {
-    snippet,
-    updateSnippet
-  }: Partial<SnippetContextInterface> = useContext(SnippetContext);
+  const { snippet, editSnippet }: Partial<SnippetContextInterface> = useContext(
+    SnippetContext
+  );
 
   return (
     <Row>
@@ -25,8 +24,8 @@ const Layout = () => {
           <Header
             placeholder="snippet name"
             onChange={(name: string) => {
-              if (!!updateSnippet) {
-                updateSnippet(
+              if (!!editSnippet) {
+                editSnippet(
                   fromJS({
                     name
                   })
