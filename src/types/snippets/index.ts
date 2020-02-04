@@ -39,7 +39,6 @@ export interface SnippetsContextInterface {
 
 export interface SnippetContextInterface {
 	snippet?: Snippet | Draft;
-	getDefaultSnippet(): void;
-	getSnippetById(id: string): void;
+	getSnippet(id?: number): void;
 	editSnippet(draft: Draft): void;
 }

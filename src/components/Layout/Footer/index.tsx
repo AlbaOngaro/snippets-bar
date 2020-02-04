@@ -21,7 +21,7 @@ interface Props {}
 
 export default (props: Props) => {
   const theme = useContext(ThemeContext);
-  const { snippet, getDefaultSnippet, editSnippet } = useContext(
+  const { snippet, getSnippet, editSnippet } = useContext(
     SnippetContext
   );
   const { removeSnippet } = useContext(SnippetsContext);
@@ -45,7 +45,7 @@ export default (props: Props) => {
           <Button>
             <Save /> save
           </Button>
-          <Button onClick={getDefaultSnippet}>
+          <Button onClick={getSnippet}>
             <Delete /> delete
           </Button>
         </Fragment>

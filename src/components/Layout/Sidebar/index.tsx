@@ -15,7 +15,7 @@ const Sidebar = styled.div`
 interface Props {};
 
 export default (props: Props) => {
-	const { snippet, getSnippetById } = useContext(SnippetContext);
+	const { snippet, getSnippet } = useContext(SnippetContext);
 	const { snippets,  filterSnippets  } = useContext(SnippetsContext);
 	const { theme } = useContext(ThemeContext);
 
@@ -29,12 +29,12 @@ export default (props: Props) => {
 				}}
 			/>
 			<ul>
-				{!!snippets && !snippets.isEmpty() && snippets.map((snippet: Snippet | Map<any, any>) => (
+				{!!snippets && !snippets.isEmpty() && snippets.map((snippet: Snippet, idx: number) => (
 					<li
 					key={snippet.get("id")}
 					onClick={() => {
-						if (!!getSnippetById) {
-							getSnippetById(snippet.get("id"))
+						if (!!getSnippet) {
+							getSnippet(idx);
 						}
 					}}
 					>

@@ -21,19 +21,7 @@ interface Props {
 const SnippetProvider = ({ children }: Props) => {
   const [current, send] = useMachine(snippetMachine);
 
-  const getSingleSnippetByIdRequest = async (id: string) => {
-    const db = await Database.get();
-
-    const snippet: Snippet = await db.snippets
-      .findOne()
-      .where("id")
-      .eq(id)
-      .exec();
-
-    send({ type: Events.LOADED, snippet });
-  };
-
-  const getDefaultSnippetRequest = async () => {
+  const getDefaultSnippetRequest = async (id?: number) => {
     const db = await Database.get();
     db.snippets.find().$.subscribe((documents: Document[]) => {
       const snippets: List<Snippet> = fromJS(
@@ -42,7 +30,7 @@ const SnippetProvider = ({ children }: Props) => {
         }) || List()
       );
 
-      const snippet: Snippet | Draft = snippets.first(Map());
+      const snippet: Snippet | Draft = snippets.get(id || 0, Map());
 
       send({ type: Events.LOADED, snippet });
     });
@@ -52,12 +40,8 @@ const SnippetProvider = ({ children }: Props) => {
     getDefaultSnippetRequest();
   });
 
-  const getDefaultSnippet = (): void => {
-    getDefaultSnippetRequest();
-  };
-
-  const getSnippetById = (id: string): void => {
-    getSingleSnippetByIdRequest(id);
+  const getSnippet = (id?: number): void => {
+    getDefaultSnippetRequest(id);
   };
 
   const editSnippet = (draft: Draft): void => {
@@ -73,8 +57,7 @@ const SnippetProvider = ({ children }: Props) => {
 
   const values: SnippetContextInterface = {
     snippet: current.context.snippet,
-    getDefaultSnippet,
-    getSnippetById,
+    getSnippet,
     editSnippet
   };
 

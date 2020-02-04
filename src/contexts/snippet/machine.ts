@@ -37,7 +37,7 @@ const snippetMachine = Machine<SnippetContextType, SnippetStateSchema, SnippetEv
 	states: {
 		loading: {
 			on: {
-				LOADED: {
+				[Events.LOADED]: {
 					target: 'reading',
 					actions: assign({
 						snippet: (ctx, { snippet }): Snippet | Draft => {
@@ -49,7 +49,7 @@ const snippetMachine = Machine<SnippetContextType, SnippetStateSchema, SnippetEv
 		},
 		reading: {
 			on: {
-				EDIT: {
+				[Events.EDIT]: {
 				  target: 'editing',
 				  actions: assign((ctx, { snippet }) => ({
 					  snippet,
@@ -60,7 +60,7 @@ const snippetMachine = Machine<SnippetContextType, SnippetStateSchema, SnippetEv
 		},
 		editing: {
 			on: {
-				SAVED: {
+				[Events.SAVED]: {
 					target: 'reading',
 					actions: assign((ctx, { snippet }) => ({
 						snippet,
