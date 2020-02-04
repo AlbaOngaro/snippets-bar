@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext, ReactNode } from "react";
 import { List, Map, fromJS } from "immutable";
 import * as Database from "../../services/db";
 
-import { Snippet, Document, SnippetsContextInterface, Draft } from "./types";
+import { Snippet, Document, SnippetsContextInterface, DraftMap, DrafObj } from "./types";
 
 const SnippetsContext = createContext<Partial<SnippetsContextInterface>>({});
 
@@ -103,7 +103,7 @@ const SnippetsProvider = ({ children }: Props) => {
     getSingleSnippetByIdRequest(id);
   };
 
-  const updateSnippet = (draft: Draft): void => {
+  const updateSnippet = (draft: DraftMap | DrafObj): void => {
     const snippet = Map({
       name: "",
       contents: "",
