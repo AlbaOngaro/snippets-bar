@@ -63,7 +63,7 @@ const SnippetsProvider = ({ children }: Props) => {
 
   useEffect(() => {
     getAllSnippetsRequest();
-  }, [setSnippets]);
+  }, []);
 
   const addSnippet = (snippet: Snippet): void => {
     addSnippetRequest(snippet);
