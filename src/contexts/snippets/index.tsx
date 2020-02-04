@@ -14,14 +14,25 @@ const SnippetsProvider = ({ children }: Props) => {
   const [snippets, setSnippets] = useState(List());
 
   const getAllSnippetsRequest = async () => {
-    const db = await Database.get();
+	const db = await Database.get();
+	
+	db.snippets.bulkInsert([
+		{
+			name: 'prod',
+			contents: 'prod contents',
+		},
+		{
+			name: 'test',
+			contents: 'test contents',
+		}
+	]);
+
     db.snippets.find().$.subscribe((documents: Document[]) => {
       const snippets: List<Snippet> = fromJS(
         documents.map((document: Document) => {
           return Map(document.toJSON());
         })
-      );
-
+	  );
       setSnippets(snippets);
     });
   };
