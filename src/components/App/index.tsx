@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
-import { SnippetsProvider, ThemeProvider } from "../../contexts";
+import { SnippetsProvider, SnippetProvider, ThemeProvider } from "../../contexts";
 
 import Layout from '../Layout';
 
@@ -18,12 +18,14 @@ const Container = styled.div`
 function App() {
 	return (
 		<SnippetsProvider>
-			<ThemeProvider>
-				<GlobalStyle />
-				<Container>
-					<Layout />
-				</Container>
-			</ThemeProvider>
+			<SnippetProvider>
+				<ThemeProvider>
+					<GlobalStyle />
+					<Container>
+						<Layout />
+					</Container>
+				</ThemeProvider>
+			</SnippetProvider>
 		</SnippetsProvider>
 	);
 }

@@ -42,8 +42,11 @@ export interface SnippetsContextInterface {
   addSnippet(snippet: Snippet): void;
   removeSnippet(id: string): void;
   filterSnippets(term: string): void;
-  snippet?: Snippet | Map<any, any>;
-  getDefaultSnippet(): void;
-  getSnippetById(id: string): void;
-  updateSnippet(draft: DraftMap): void;
+}
+
+export interface SnippetContextInterface {
+	snippet?: Snippet | Map<any, any>;
+	getDefaultSnippet(): void;
+	getSnippetById(id: string): void;
+	updateSnippet(draft: DraftMap): void;
 }

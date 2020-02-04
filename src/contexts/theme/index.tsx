@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, ReactNode } from "react";
 import { ThemeContext, ThemeProvider as Provider } from "styled-components";
-import { Theme, Themes } from './types';
+import { Theme, Themes } from '../../types/theme';
 
 const light: Theme = {
   bg: "#f2f2f2",

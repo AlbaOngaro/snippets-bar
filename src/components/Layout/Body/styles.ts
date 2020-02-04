@@ -1,4 +1,4 @@
-import { Theme } from '../../../contexts/theme/types';
+import { Theme } from '../../../types/theme';
 import { darken } from "polished";
 
 interface Props {

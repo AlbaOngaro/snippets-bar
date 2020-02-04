@@ -1,19 +1,19 @@
 import React, { useContext } from "react";
 import { fromJS } from "immutable";
-import { SnippetsContext } from "../../contexts";
+import { SnippetContext } from "../../contexts";
 
 import { Col, Row } from "./Grid";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import Body from "./Body";
 import Footer from "./Footer";
-import { SnippetsContextInterface } from "../../contexts/snippets/types";
+import { SnippetContextInterface } from "../../types/snippets";
 
 const Layout = () => {
   const {
     snippet,
     updateSnippet
-  }: Partial<SnippetsContextInterface> = useContext(SnippetsContext);
+  }: Partial<SnippetContextInterface> = useContext(SnippetContext);
 
   return (
     <Row>

@@ -1,9 +1,9 @@
 import React, { useContext, ReactNode } from "react";
 import styled from "styled-components";
 
-import { SnippetsContextInterface } from "../../../contexts/snippets/types";
+import { SnippetContextInterface } from "../../../types/snippets";
 
-import { ThemeContext, SnippetsContext } from "../../../contexts";
+import { ThemeContext, SnippetContext } from "../../../contexts";
 
 import styles from "./styles";
 
@@ -18,13 +18,13 @@ interface Props {
 
 export default ({ children, ...props }: Props) => {
   const theme = useContext(ThemeContext);
-  const { snippet }: Partial<SnippetsContextInterface> = useContext(
-    SnippetsContext
+  const { snippet }: Partial<SnippetContextInterface> = useContext(
+    SnippetContext
   );
 
   return (
     <Body theme={theme} {...props}>
-      {!snippet.isEmpty() && <code>{snippet.get("contents")}</code>}
+      {!!snippet && !snippet.isEmpty() && <code>{snippet.get("contents")}</code>}
     </Body>
   );
 };
