@@ -14,6 +14,7 @@
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
     "@types/styled-components": "^4.4.2",
+    "@xstate/react": "^0.8.1",
     "immutable": "^4.0.0-rc.12",
     "md5": "^2.2.1",
     "polished": "^3.4.3",

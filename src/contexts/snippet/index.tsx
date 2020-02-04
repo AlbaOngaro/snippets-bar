@@ -1,8 +1,16 @@
-import React, { useState, useEffect, createContext, ReactNode } from "react";
+import React, { useEffect, createContext, ReactNode } from "react";
 import { List, Map, fromJS } from "immutable";
+import { useMachine } from "@xstate/react";
+
+import { snippetMachine } from "./machine";
 import * as Database from "../../services/db";
 
-import { Snippet, Document, SnippetContextInterface, DraftMap, DrafObj } from "../../types/snippets";
+import {
+  Snippet,
+  Document,
+  SnippetContextInterface,
+  Draft
+} from "../../types/snippets";
 
 const SnippetContext = createContext<Partial<SnippetContextInterface>>({});
 
@@ -11,18 +19,18 @@ interface Props {
 }
 
 const SnippetProvider = ({ children }: Props) => {
-  const [snippet, setSnippet] = useState(Map());
+  const [current, send] = useMachine(snippetMachine);
 
   const getSingleSnippetByIdRequest = async (id: string) => {
     const db = await Database.get();
 
-    const snippet = await db.snippets
+    const snippet: Snippet = await db.snippets
       .findOne()
       .where("id")
       .eq(id)
       .exec();
 
-    setSnippet(!snippet ? Map() : Map(snippet.toJSON()));
+    send({ type: "LOADED", snippet });
   };
 
   const getDefaultSnippetRequest = async () => {
@@ -34,15 +42,15 @@ const SnippetProvider = ({ children }: Props) => {
         }) || List()
       );
 
-      const snippet: Snippet | Map<any, any> = snippets.first(Map());
+      const snippet: Snippet | Draft = snippets.first(Map());
 
-      setSnippet(snippet);
+      send({ type: "LOADED", snippet });
     });
   };
 
   useEffect(() => {
     getDefaultSnippetRequest();
-  }, []);
+  });
 
   const getDefaultSnippet = (): void => {
     getDefaultSnippetRequest();
@@ -52,7 +60,7 @@ const SnippetProvider = ({ children }: Props) => {
     getSingleSnippetByIdRequest(id);
   };
 
-  const updateSnippet = (draft: DraftMap | DrafObj): void => {
+  const updateSnippet = (draft: Draft): void => {
     const snippet = Map({
       name: "",
       contents: "",
@@ -60,20 +68,18 @@ const SnippetProvider = ({ children }: Props) => {
       saved: false
     }).merge(Map.isMap(draft) ? draft : fromJS(draft));
 
-    setSnippet(snippet);
+    send({ type: "EDIT", snippet });
   };
 
   const values: SnippetContextInterface = {
-    snippet,
+    snippet: current.context.snippet,
     getDefaultSnippet,
     getSnippetById,
     updateSnippet
   };
 
   return (
-    <SnippetContext.Provider value={values}>
-      {children}
-    </SnippetContext.Provider>
+    <SnippetContext.Provider value={values}>{children}</SnippetContext.Provider>
   );
 };
 

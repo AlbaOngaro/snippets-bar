@@ -15,7 +15,8 @@
     "noEmit": true,
     "jsx": "react",
     "strictNullChecks": false,
-    "keyofStringsOnly": false
+    "keyofStringsOnly": false,
+    "noImplicitAny": false
   },
   "include": ["src"]
 }

@@ -19,7 +19,7 @@ export interface Snippet extends Map<any, any> {
   tags: [string];
 }
 
-export interface DraftMap extends Map<any, any> {
+interface DraftMap extends Map<any, any> {
   id?: string;
   name?: string;
   content?: string;
@@ -28,14 +28,7 @@ export interface DraftMap extends Map<any, any> {
   tags?: [string];
 }
 
-export interface DrafObj {
-	id?: string;
-	name?: string;
-	content?: string;
-	editing?: boolean;
-	saved?: boolean;
-	tags?: [string];
-}
+export type Draft = DraftMap;
 
 export interface SnippetsContextInterface {
   snippets?: List<Snippet>;
@@ -45,7 +38,7 @@ export interface SnippetsContextInterface {
 }
 
 export interface SnippetContextInterface {
-	snippet?: Snippet | Map<any, any>;
+	snippet?: Snippet | Draft;
 	getDefaultSnippet(): void;
 	getSnippetById(id: string): void;
 	updateSnippet(draft: DraftMap): void;
