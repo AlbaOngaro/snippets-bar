@@ -4,7 +4,6 @@ import { Map } from "immutable";
 
 import {
   ThemeContext,
-  SnippetContext,
   SnippetsContext
 } from "../../../contexts";
 
@@ -21,14 +20,11 @@ interface Props {}
 
 export default (props: Props) => {
   const theme = useContext(ThemeContext);
-  const { snippet, getSnippet, editSnippet } = useContext(
-    SnippetContext
-  );
   const { removeSnippet } = useContext(SnippetsContext);
 
   return (
     <Footer theme={theme} {...props}>
-      {!!snippet && snippet.isEmpty() && !snippet.get("editing") && (
+      {/* {!!snippet && snippet.isEmpty() && !snippet.get("editing") && (
         <Button
           onClick={() => {
             if (!!editSnippet) {
@@ -72,7 +68,7 @@ export default (props: Props) => {
             <Plus /> new
           </Button>
         </Fragment>
-      )}
+      )} */}
     </Footer>
   );
 };
