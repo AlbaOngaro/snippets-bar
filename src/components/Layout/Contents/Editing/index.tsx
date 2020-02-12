@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, Dispatch, SetStateAction } from 'react';
 
 import { Theme } from '../../../../types/theme';
 import { Snippet } from '../../../../types/snippets';
@@ -16,18 +16,29 @@ interface IEditingProps {
 	send: Function,
 }
 
-const Editing = ({ theme, snippet, send }: IEditingProps) => (
-	<Fragment>
-		<Header theme={theme}>
-			<Input theme={theme} type="text" value={snippet.get('name')} />
-		</Header>
-		<Body theme={theme}>
-			<TextArea theme={theme} value={snippet.get('contents')} />
-		</Body>
-		<Footer>
-			<button onClick={() => send({ type: Events.SAVED, snippet: snippet })}>save</button>
-		</Footer>
-	</Fragment>
-);
+const Editing = ({ theme, snippet, send }: IEditingProps) => {
+	const [draft, setDraft]: [Snippet, Dispatch<SetStateAction<Snippet>>] = useState(snippet);
+
+	return (
+		<Fragment>
+			<Header theme={theme}>
+				<Input theme={theme} type="text" value={draft.get('name')} />
+			</Header>
+			<Body theme={theme}>
+				<TextArea 
+					theme={theme} 
+					defaultValue={draft.get('contents')} 
+					onChange={(e) => {
+						const updated: Snippet = draft.set('contents', e.target.value);
+						setDraft(updated);
+					}} 
+				/>
+			</Body>
+			<Footer>
+				<button onClick={() => send({ type: Events.SAVED, snippet: draft })}>save</button>
+			</Footer>
+		</Fragment>
+	)
+};
 
 export default Editing;

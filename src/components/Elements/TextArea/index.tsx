@@ -10,10 +10,10 @@ const TextArea = styled.textarea`
 
 interface ITextAreaProps {
 	theme: Theme,
-	value?: string,
-	onChange?: (e: ChangeEvent) => {},
+	defaultValue?: string,
+	onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void,
 };
 
-export default ({ theme, value, onChange, ...rest }: ITextAreaProps) => {
-	return <TextArea theme={theme} value={value} onChange={onChange} {...rest} />;
+export default ({ theme, defaultValue, onChange, ...rest }: ITextAreaProps) => {
+	return <TextArea theme={theme} defaultValue={defaultValue} onChange={onChange} {...rest} />;
 }
