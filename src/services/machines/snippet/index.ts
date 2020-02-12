@@ -2,7 +2,7 @@ import { Machine, assign, interpret } from 'xstate';
 
 import { Snippet, Draft } from '../../../types/snippets';
 import { fromJS } from 'immutable';
-import { getDefaultSnippetRequest } from './requests';
+import { getDefaultSnippetRequest, updateSnippet } from './requests';
 
 export interface SnippetContextType {
 	snippet: Snippet | Draft,
@@ -12,6 +12,7 @@ export interface SnippetContextType {
 export interface SnippetStateSchema {
 	states: {
 		loading: {},
+		saving: {},
 		reading: {},
 		editing: {},
 	}
@@ -52,6 +53,25 @@ const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 				}
 			}
 		},
+		saving: {
+			invoke: {
+				id: 'updateSnippet',
+				src: (_, { snippet }) => updateSnippet(snippet),
+				onDone: {
+					target: 'reading',
+					actions: assign((_, { data }) => ({ snippet: data })),
+				},
+				onError: {
+					target: 'reading',
+					actions: assign((_, { data }) => {
+						debugger;
+						return {
+							snippet: fromJS({}),
+						};
+					}),
+				}
+			}
+		},
 		reading: {
 			on: {
 				[Events.EDIT]: {
@@ -67,7 +87,7 @@ const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 		editing: {
 			on: {
 				[Events.SAVED]: {
-					target: 'reading',
+					target: 'saving',
 					actions: assign((_, { snippet }) => ({
 						snippet,
 						editing: false,

@@ -18,6 +18,13 @@ const getDefaultSnippetRequest = async (id?: number): Promise<Snippet | Draft> =
 	return snippet;
 };
 
-  export {
-	getDefaultSnippetRequest
-  }
+const updateSnippet = async (snippet: Snippet): Promise<Snippet> => {
+	const db = await Database.get();
+	const newSnippet: Document = await db.snippets.upsert(snippet.toJS());
+	return fromJS(newSnippet.toJSON());
+}
+
+export {
+	getDefaultSnippetRequest,
+	updateSnippet
+}
