@@ -4,12 +4,10 @@ import { useMachine } from '@xstate/react';
 import { ThemeContext, SnippetsContext } from '../../contexts';
 import { SnippetMachine, Events } from '../../services/machines/snippet';
 
-import { Col, Row } from "./Grid";
-import Sidebar from "./Sidebar";
-import Header from "./Header";
-import Body from "./Body";
-import Footer from "./Footer";
-import { fromJS } from "immutable";
+import { Col, Row } from "../Elements/Grid";
+import Sidebar from "../Elements/Sidebar";
+import * as Contents from './Contents';
+
 
 const Layout = () => {
 	const theme = useContext(ThemeContext);
@@ -33,18 +31,12 @@ const Layout = () => {
 				</Sidebar>
 			</Col>
 			<Col width={65}>
-				<Body theme={theme} full={!current.matches('editing')}>
-					{current.matches('reading') && (
-						<code>{current.context.snippet.get('contents')}</code>
-					)}
-					{current.matches('editing') && (
-						<React.Fragment>
-							<p>Editing</p>
-							<button onClick={() => send({ type: Events.SAVED, snippet: current.context.snippet })}>save</button>
-						</React.Fragment>
-					)}
-				</Body>
-				<Footer />
+				{current.matches('reading') && (
+					<Contents.Reading theme={theme} snippet={current.context.snippet} send={send} />
+				)}
+				{current.matches('editing') && (
+					<Contents.Editing theme={theme} snippet={current.context.snippet} send={send} />
+				)}
 			</Col>
 		</Row>
   	);

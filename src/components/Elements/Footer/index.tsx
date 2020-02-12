@@ -7,7 +7,7 @@ import {
   SnippetsContext
 } from "../../../contexts";
 
-import Button from "../../Elements/Button";
+import Button from "../Button";
 import { Copy, Edit, Delete, Plus, Save } from "../../../assets/svg";
 
 import styles from "./styles";
