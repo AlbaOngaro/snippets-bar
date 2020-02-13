@@ -27,7 +27,7 @@ export enum Events {
 export type SnippetEvent = 
 	{ type: Events.SELECTED, id: number } | 
 	{ type: Events.EDIT, snippet: Snippet | Draft } | 
-	{ type: Events.SAVED, snippet: Snippet }; 
+	{ type: Events.SAVED, snippet: Snippet };
 
 const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 	id: 'snippet',
@@ -81,7 +81,12 @@ const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 						editing: true,
 					}))
 				},
-				[Events.SELECTED]: 'loading',
+				[Events.SELECTED]: {
+					target: 'loading',
+					actions: assign(() => ({
+						editing: false,
+					}))
+				},
 			}
 		},
 		editing: {
@@ -92,7 +97,13 @@ const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 						snippet,
 						editing: false,
 					}))
-				}
+				},
+				[Events.SELECTED]: {
+					target: 'loading',
+					actions: assign(() => ({
+						editing: false,
+					}))
+				},
 			}
 		}
 	}

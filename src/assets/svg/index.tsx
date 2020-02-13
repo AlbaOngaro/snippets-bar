@@ -7,7 +7,7 @@ import Edit from './Edit';
 export {
 	Delete,
 	Save,
-	Plus,
+	Plus as New,
 	Copy,
 	Edit,
 }

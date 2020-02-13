@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
 import { Theme } from '../../../types/theme';
@@ -12,9 +12,17 @@ const Input = styled.input`
 interface IInputProps {
 	theme: Theme,
 	type?: string,
-	value?: string,
+	defaultValue?: string,
+	onChange?: (e: ChangeEvent<HTMLInputElement>) => void,
 }
 
-export default ({ theme, ...rest }: IInputProps) => {
-	return <Input theme={theme} {...rest}></Input>
+export default ({ theme, type, defaultValue, onChange }: IInputProps) => {
+	return (
+		<Input 
+			theme={theme} 
+			type={type} 
+			defaultValue={defaultValue} 
+			onChange={onChange} 
+		/>
+	)
 }

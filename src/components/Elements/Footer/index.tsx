@@ -1,29 +1,22 @@
-import React, { Fragment, useContext } from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
-import { Map } from "immutable";
-
-import {
-  ThemeContext,
-  SnippetsContext
-} from "../../../contexts";
-
-import Button from "../Button";
-import { Copy, Edit, Delete, Plus, Save } from "../../../assets/svg";
 
 import styles from "./styles";
+import { Theme } from "../../../types/theme";
 
 const Footer = styled.div`
   ${styles.Footer}
 `;
 
-interface Props {}
+interface IFooterProps {
+	theme: Theme,
+	children?: ReactNode,
+}
 
-export default (props: Props) => {
-  const theme = useContext(ThemeContext);
-  const { removeSnippet } = useContext(SnippetsContext);
-
+export default ({ theme, children }: IFooterProps) => {
   return (
-    <Footer theme={theme} {...props}>
+    <Footer theme={theme}>
+		{children}
       {/* {!!snippet && snippet.isEmpty() && !snippet.get("editing") && (
         <Button
           onClick={() => {

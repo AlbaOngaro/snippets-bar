@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { Theme } from '../../../../types/theme';
 import { Snippet } from '../../../../types/snippets';
@@ -6,6 +6,9 @@ import { Snippet } from '../../../../types/snippets';
 import { Events } from '../../../../services/machines/snippet';
 
 import Body from '../../../Elements/Body';
+import Footer from '../../../Elements/Footer';
+import Button from '../../../Elements/Button';
+import { Copy, Edit, Delete, New } from '../../../../assets/svg';
 
 interface IReadingProps {
 	theme: Theme,
@@ -14,11 +17,25 @@ interface IReadingProps {
 }
 
 const Reading = ({ theme, snippet, send }: IReadingProps) => (
-	<Body theme={theme} full>
-		<p>Reading</p>
-		<code>{snippet.get('contents')}</code>
-		<button onClick={() => send({ type: Events.EDIT, snippet: snippet })}>edit</button>
-	</Body>
+	<Fragment>
+		<Body theme={theme} full>
+			<code>{snippet.get('contents')}</code>
+		</Body>
+		<Footer theme={theme}>
+			<Button>
+				<Copy /> Copy
+			</Button>
+			<Button onClick={() => send({ type: Events.EDIT, snippet: snippet })}>
+				<Edit /> Edit
+			</Button>
+			<Button>
+				<Delete /> Delete
+			</Button>
+			<Button>
+				<New /> New
+			</Button>
+		</Footer>
+	</Fragment>
 );
 
 export default Reading;
