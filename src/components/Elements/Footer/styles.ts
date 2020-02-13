@@ -1,12 +1,12 @@
 import { darken } from 'polished';
 import { Theme } from '../../../types/theme';
 
-interface Props {
+interface IStylesProps {
 	theme: Theme,
 }
 
 export default {
-  Footer: ({ theme }: Props) =>`
+  Footer: ({ theme }: IStylesProps) =>`
 	height: 15%;
 	background: ${darken(0.02, theme.bg)};
 	color: ${theme.fg};

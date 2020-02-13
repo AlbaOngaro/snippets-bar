@@ -1,12 +1,12 @@
 import { lighten } from 'polished';
 import { Theme } from '../../../types/theme';
 
-interface Props {
+interface IStylesProps {
 	theme: Theme,
 }
 
 export default {
-	Input: ({ theme }: Props) => `
+	Input: ({ theme }: IStylesProps) => `
 		background: ${lighten(0.02, theme.bg)};
 		color: ${theme.fg};
 		border: 0;

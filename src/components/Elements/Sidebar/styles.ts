@@ -1,11 +1,11 @@
 import { Theme } from '../../../types/theme';
 
-interface Props {
+interface IStylesProps {
 	theme: Theme,
 }
 
 export default {
-	Sidebar: ({ theme }: Props) => `
+	Sidebar: ({ theme }: IStylesProps) => `
 		height: 100%;
 		width: 100%;
 		background: ${theme.bg};

@@ -1,5 +1,11 @@
+import { Theme } from '../../../types/theme';
+
+interface IStylesProps {
+	theme: Theme,
+}
+
 export default {
-	TextArea: ({ theme }) =>`
+	TextArea: ({ theme }: IStylesProps) =>`
 		background: transparent;
 		border: none;
 		color: ${theme.fg};

@@ -1,11 +1,11 @@
 import { Theme } from '../../../types/theme';
 
-interface Props {
+interface IStylesProps {
 	theme: Theme,
 }
 
 export default {
-  Button: ({ theme }: Props) => `
+  Button: ({ theme }: IStylesProps) => `
   	background: transparent;
 	border: 0;
 	color: ${theme.fg};
