@@ -45,12 +45,7 @@ const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 					target: 'reading',
 					actions: assign((_, { data }) => ({ snippet: data })),
 				},
-				onError: {
-					target: 'reading',
-					actions: assign(() => ({
-						snippet: fromJS({}),
-					})),
-				}
+				onError: 'reading'
 			}
 		},
 		saving: {
@@ -61,15 +56,7 @@ const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 					target: 'reading',
 					actions: assign((_, { data }) => ({ snippet: data })),
 				},
-				onError: {
-					target: 'reading',
-					actions: assign((_, { data }) => {
-						debugger;
-						return {
-							snippet: fromJS({}),
-						};
-					}),
-				}
+				onError: 'reading'
 			}
 		},
 		reading: {

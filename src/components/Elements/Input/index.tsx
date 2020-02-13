@@ -12,15 +12,17 @@ const Input = styled.input`
 interface IInputProps {
 	theme: Theme,
 	type?: string,
+	placeholder?: string,
 	defaultValue?: string,
 	onChange?: (e: ChangeEvent<HTMLInputElement>) => void,
 }
 
-export default ({ theme, type, defaultValue, onChange }: IInputProps) => {
+export default ({ theme, type, defaultValue, onChange, placeholder }: IInputProps) => {
 	return (
 		<Input 
 			theme={theme} 
-			type={type} 
+			type={type}
+			placeholder={placeholder}
 			defaultValue={defaultValue} 
 			onChange={onChange} 
 		/>

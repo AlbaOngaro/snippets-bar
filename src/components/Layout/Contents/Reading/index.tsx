@@ -22,10 +22,16 @@ const Reading = ({ theme, snippet, send }: IReadingProps) => (
 			<code>{snippet.get('contents')}</code>
 		</Body>
 		<Footer theme={theme}>
-			<Button>
+			<Button 
+				onClick={() => {
+					navigator.clipboard.writeText(snippet.get('contents'));
+				}}
+			>
 				<Copy /> Copy
 			</Button>
-			<Button onClick={() => send({ type: Events.EDIT, snippet: snippet })}>
+			<Button 
+				onClick={() => send({ type: Events.EDIT, snippet: snippet })}
+			>
 				<Edit /> Edit
 			</Button>
 			<Button>
