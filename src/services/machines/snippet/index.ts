@@ -2,7 +2,7 @@ import { Machine, assign, interpret } from 'xstate';
 
 import { Snippet, Draft } from '../../../types/snippets';
 import { fromJS } from 'immutable';
-import { getDefaultSnippetRequest, updateSnippet } from './requests';
+import { getSnippetRequest, updateSnippetRequest, deleteSnippetRequest } from './requests';
 
 export interface SnippetContextType {
 	snippet: Snippet | Draft,
@@ -13,6 +13,7 @@ export interface SnippetStateSchema {
 	states: {
 		loading: {},
 		saving: {},
+		deleting: {},
 		reading: {},
 		editing: {},
 	}
@@ -22,12 +23,14 @@ export enum Events {
 	SELECTED = 'SELECTED',
 	EDIT = 'EDIT',
 	SAVED = 'SAVED',
+	DELETED = 'DELETED',
 }
 
 export type SnippetEvent = 
 	{ type: Events.SELECTED, id: number } | 
 	{ type: Events.EDIT, snippet: Snippet | Draft } | 
-	{ type: Events.SAVED, snippet: Snippet };
+	{ type: Events.SAVED, snippet: Snippet } |
+	{ type: Events.DELETED, id: string };
 
 const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 	id: 'snippet',
@@ -40,7 +43,7 @@ const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 		loading: {
 			invoke: {
 				id: 'getSnippet',
-				src: (_, { id }) => getDefaultSnippetRequest(id),
+				src: (_, { id }) => getSnippetRequest(id),
 				onDone: {
 					target: 'reading',
 					actions: assign((_, { data }) => ({ snippet: data })),
@@ -51,12 +54,24 @@ const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 		saving: {
 			invoke: {
 				id: 'updateSnippet',
-				src: (_, { snippet }) => updateSnippet(snippet),
+				src: (_, { snippet }) => updateSnippetRequest(snippet),
 				onDone: {
 					target: 'reading',
 					actions: assign((_, { data }) => ({ snippet: data })),
 				},
 				onError: 'reading'
+			}
+		},
+		deleting: {
+			invoke: {
+				id: 'deleteSnippet',
+				src: (_, { id }) => deleteSnippetRequest(id),
+				onDone: {
+					target: 'loading',
+				},
+				onError: {
+					target: 'loading',
+				}
 			}
 		},
 		reading: {
@@ -74,6 +89,12 @@ const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 						editing: false,
 					}))
 				},
+				[Events.DELETED]: {
+					target: 'deleting',
+					actions: assign(() => ({
+						editing: false,
+					}))
+				}
 			}
 		},
 		editing: {

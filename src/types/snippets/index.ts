@@ -32,13 +32,5 @@ export type Draft = DraftMap;
 
 export interface SnippetsContextInterface {
   snippets?: List<Snippet>;
-  addSnippet(snippet: Snippet): void;
-  removeSnippet(id: string): void;
   filterSnippets(term: string): void;
-}
-
-export interface SnippetContextInterface {
-	snippet?: Snippet | Draft;
-	getSnippet(id?: number): void;
-	editSnippet(draft: Draft): void;
 }

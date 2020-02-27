@@ -16,17 +16,6 @@ const SnippetsProvider = ({ children }: Props) => {
   const getAllSnippetsRequest = async () => {
 	const db = await Database.get();
 	
-	db.snippets.bulkInsert([
-		{
-			name: 'prod',
-			contents: 'prod contents',
-		},
-		{
-			name: 'test',
-			contents: 'test contents',
-		}
-	]);
-
     db.snippets.find().$.subscribe((documents: Document[]) => {
       const snippets: List<Snippet> = fromJS(
         documents.map((document: Document) => {
@@ -35,20 +24,6 @@ const SnippetsProvider = ({ children }: Props) => {
 	  );
       setSnippets(snippets);
     });
-  };
-
-  const addSnippetRequest = async (snippet: Snippet) => {
-    const db = await Database.get();
-    await db.snippets.upsert(snippet);
-  };
-
-  const removeSnippetRequest = async (id: string) => {
-    const db = await Database.get();
-    await db.snippets
-      .find()
-      .where("id")
-      .eq(id)
-      .remove();
   };
 
   const filterSnippetsRequest = async (term: string) => {
@@ -65,22 +40,12 @@ const SnippetsProvider = ({ children }: Props) => {
     getAllSnippetsRequest();
   }, []);
 
-  const addSnippet = (snippet: Snippet): void => {
-    addSnippetRequest(snippet);
-  };
-
-  const removeSnippet = (id: string): void => {
-    removeSnippetRequest(id);
-  };
-
   const filterSnippets = (term: string): void => {
     filterSnippetsRequest(term);
   };
 
   const values: SnippetsContextInterface = {
     snippets,
-    addSnippet,
-    removeSnippet,
     filterSnippets
   };
 

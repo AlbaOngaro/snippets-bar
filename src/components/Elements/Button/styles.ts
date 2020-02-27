@@ -2,21 +2,22 @@ import { Theme } from '../../../types/theme';
 
 interface IStylesProps {
 	theme: Theme,
+	center?: boolean,
 }
 
 export default {
-  Button: ({ theme }: IStylesProps) => `
+  Button: ({ theme, center }: IStylesProps) => `
   	background: transparent;
 	border: 0;
 	color: ${theme.fg};
 	display: flex;
-    justify-content: space-between;
     padding: 0;
     width: auto;
     text-transform: uppercase;
 	align-items: center;
 	opacity: 1;
 	transition: opacity .5 ease-in-out;
+	${center ? 'justify-content: center;' : 'justify-content: space-between;'}
 
 	&:focus,
 	&:hover {

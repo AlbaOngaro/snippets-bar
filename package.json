@@ -28,6 +28,7 @@
     "xstate": "^4.7.7"
   },
   "devDependencies": {
+    "babel-plugin-styled-components": "^1.10.7",
     "dotenv": "^8.2.0",
     "electron": "^7.1.10",
     "electron-builder": "^22.2.0",

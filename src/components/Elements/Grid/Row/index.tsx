@@ -7,8 +7,14 @@ const Row = styled.div`
   ${styles.Row}
 `;
 
-interface Props {
+interface IRowProps {
 	children: ReactNode,
+	padding?: {
+		top?: number,
+		right?: number,
+		bottom?: number,
+		left?: number,
+	},
 }
 
-export default ({ children, ...rest }: Props) => <Row {...rest}>{children}</Row>;
+export default ({ children, padding, }: IRowProps) => <Row padding={padding}>{children}</Row>;

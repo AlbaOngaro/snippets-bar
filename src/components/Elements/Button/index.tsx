@@ -12,10 +12,11 @@ const Button = styled.button`
 interface Props {
 	children: ReactNode,
 	onClick?: any,
+	center?: boolean
 }
 
-export default ({ children, ...rest }: Props) => {
+export default ({ children, center, ...rest }: Props) => {
 	const theme = useContext(ThemeContext);
 
-	return <Button theme={theme} {...rest}>{children}</Button>
+	return <Button theme={theme} center={center} {...rest}>{children}</Button>
 }

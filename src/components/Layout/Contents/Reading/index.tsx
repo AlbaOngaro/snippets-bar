@@ -4,7 +4,7 @@ import { Theme } from '../../../../types/theme';
 import { Snippet } from '../../../../types/snippets';
 
 import { Events } from '../../../../services/machines/snippet';
-
+import { Row, Col } from '../../../Elements/Grid';
 import Body from '../../../Elements/Body';
 import Modal from '../../../Elements/Modal';
 import Paragraph from '../../../Elements/Paragraph';
@@ -21,6 +21,7 @@ interface IReadingProps {
 const Reading = ({ theme, snippet, send }: IReadingProps) => {
 
 	const [copied, setCopied] = useState(false);
+	const [deleting, setDeleting] = useState(false);
 
 	return (
 		<Fragment>
@@ -31,8 +32,34 @@ const Reading = ({ theme, snippet, send }: IReadingProps) => {
 						theme={theme} 
 						timeout={1000} 
 						onClosed={() => setCopied(false)}
+						autoclose
 					>
 						<Paragraph theme={theme}>Succesfully copied</Paragraph>
+					</Modal>
+				)}
+				{deleting && (
+					<Modal theme={theme}>
+						<Row padding={{ bottom: 10 }}>
+							<Paragraph theme={theme}>Do you really want to delete this snippet?</Paragraph>
+						</Row>
+						<Row>
+							<Col width={50}>
+								<Button
+									center 
+									onClick={() => send({ type: Events.DELETED, id: snippet.get('id')})}
+								>
+									Yes
+								</Button>
+							</Col>
+							<Col width={50}>
+								<Button 
+									center 
+									onClick={() => setDeleting(false)}
+								>
+									No
+								</Button>
+							</Col>
+						</Row>
 					</Modal>
 				)}
 			</Body>
@@ -46,12 +73,10 @@ const Reading = ({ theme, snippet, send }: IReadingProps) => {
 				>
 					<Copy /> Copy
 				</Button>
-				<Button 
-					onClick={() => send({ type: Events.EDIT, snippet: snippet })}
-				>
+				<Button onClick={() => send({ type: Events.EDIT, snippet: snippet })}>
 					<Edit /> Edit
 				</Button>
-				<Button>
+				<Button onClick={() => setDeleting(true)}>
 					<Delete /> Delete
 				</Button>
 				<Button>
