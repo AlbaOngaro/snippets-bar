@@ -11,6 +11,7 @@ import Paragraph from '../../../Elements/Paragraph';
 import Footer from '../../../Elements/Footer';
 import Button from '../../../Elements/Button';
 import { Copy, Edit, Delete, New } from '../../../../assets/svg';
+import { fromJS } from 'immutable';
 
 interface IReadingProps {
 	theme: Theme,
@@ -79,7 +80,7 @@ const Reading = ({ theme, snippet, send }: IReadingProps) => {
 				<Button onClick={() => setDeleting(true)}>
 					<Delete /> Delete
 				</Button>
-				<Button>
+				<Button onClick={() => send({ type: Events.CREATED, snippet: fromJS({}) })}>
 					<New /> New
 				</Button>
 			</Footer>

@@ -46,6 +46,9 @@ const Layout = () => {
 				{current.matches('editing') && (
 					<Contents.Editing theme={theme} snippet={current.context.snippet} send={send} />
 				)}
+				{current.matches('creating') && (
+					<Contents.Creating theme={theme} snippet={current.context.snippet} send={send} />
+				)}
 			</Col>
 		</Row>
   	);

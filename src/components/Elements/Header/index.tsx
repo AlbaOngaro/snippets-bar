@@ -12,11 +12,12 @@ const Header = styled.div`
 interface IHeaderProps {
 	theme: Theme,
 	children?: ReactNode,
+	height?: number,
 }
 
-export default ({ children, theme }: IHeaderProps) => {
+export default ({ children, theme, height }: IHeaderProps) => {
 	return (
-		<Header theme={theme}>
+		<Header height={height} theme={theme}>
 			{children}
 		</Header>
 	);

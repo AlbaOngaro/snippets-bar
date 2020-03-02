@@ -16,6 +16,7 @@ export interface SnippetStateSchema {
 		deleting: {},
 		reading: {},
 		editing: {},
+		creating: {},
 	}
 };
 
@@ -24,13 +25,15 @@ export enum Events {
 	EDIT = 'EDIT',
 	SAVED = 'SAVED',
 	DELETED = 'DELETED',
+	CREATED = 'CREATED',
 }
 
 export type SnippetEvent = 
 	{ type: Events.SELECTED, id: number } | 
 	{ type: Events.EDIT, snippet: Snippet | Draft } | 
 	{ type: Events.SAVED, snippet: Snippet } |
-	{ type: Events.DELETED, id: string };
+	{ type: Events.DELETED, id: string } |
+	{ type: Events.CREATED, snippet: Draft };
 
 const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 	id: 'snippet',
@@ -94,6 +97,13 @@ const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 					actions: assign(() => ({
 						editing: false,
 					}))
+				},
+				[Events.CREATED]: {
+					target: 'creating',
+					actions: assign((_, { snippet }) => ({
+						snippet,
+						editing: true,
+					}))
 				}
 			}
 		},
@@ -105,6 +115,23 @@ const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 						snippet,
 						editing: false,
 					}))
+				},
+				[Events.SELECTED]: {
+					target: 'loading',
+					actions: assign(() => ({
+						editing: false,
+					}))
+				},
+			}
+		},
+		creating: {
+			on: {
+				[Events.SAVED]: {
+					target: 'saving',
+					actions: assign((_, { snippet }) => ({
+						snippet,
+						editing: false,
+					})) 
 				},
 				[Events.SELECTED]: {
 					target: 'loading',
