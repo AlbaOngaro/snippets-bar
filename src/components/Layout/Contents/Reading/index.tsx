@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from 'react';
+import { fromJS } from 'immutable';
+import { uniqueId } from 'xstate/lib/utils';
 
 import { Theme } from '../../../../types/theme';
 import { Snippet } from '../../../../types/snippets';
@@ -11,7 +13,6 @@ import Paragraph from '../../../Elements/Paragraph';
 import Footer from '../../../Elements/Footer';
 import Button from '../../../Elements/Button';
 import { Copy, Edit, Delete, New } from '../../../../assets/svg';
-import { fromJS } from 'immutable';
 
 interface IReadingProps {
 	theme: Theme,
@@ -80,7 +81,7 @@ const Reading = ({ theme, snippet, send }: IReadingProps) => {
 				<Button onClick={() => setDeleting(true)}>
 					<Delete /> Delete
 				</Button>
-				<Button onClick={() => send({ type: Events.CREATED, snippet: fromJS({}) })}>
+				<Button onClick={() => send({ type: Events.CREATED, snippet: fromJS({ id: uniqueId() }) })}>
 					<New /> New
 				</Button>
 			</Footer>
