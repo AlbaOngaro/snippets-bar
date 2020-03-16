@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "./",
   "main": "public/electron.js",
+  "author": "Alba Ongaro",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
@@ -25,19 +26,19 @@
     "rxdb": "^8.7.5",
     "rxjs": "^6.5.4",
     "typescript": "^3.7.5",
-    "xstate": "^4.7.7"
+	"xstate": "^4.7.7",
+	"menubar": "^7.2.0",
+	"styled-components": "^5.0.0",
+	"electron": "^7.1.10"
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.7",
     "dotenv": "^8.2.0",
-    "electron": "^7.1.10",
     "electron-builder": "^22.2.0",
     "electron-devtools-installer": "^2.2.4",
     "foreman": "^3.0.1",
-    "menubar": "^7.2.0",
     "nodemon": "^2.0.2",
-    "react-app-rewired": "^2.1.5",
-    "styled-components": "^5.0.0"
+    "react-app-rewired": "^2.1.5"
   },
   "scripts": {
     "start": "react-app-rewired start --strictNullChecks=false --isolatedModules=false",
