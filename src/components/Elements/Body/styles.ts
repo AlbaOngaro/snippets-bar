@@ -13,5 +13,6 @@ export default {
 		color: ${theme.fg};
 		padding: 24px 16px;
 		position: relative;
+		overflow: scroll;
 	`
 };

@@ -12,7 +12,7 @@ export default ({ theme, options, onChange }) => {
 	return (
 		<Select theme={theme} onChange={onChange}>
 			{options.map(option => 
-				<option value={option.value}>{option.label}</option>
+				<option key={option.value} value={option.value}>{option.label}</option>
 			)}
 		</Select>
 	)

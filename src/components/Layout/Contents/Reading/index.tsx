@@ -46,13 +46,13 @@ const Reading = ({ theme, snippet, send }: IReadingProps) => {
 		<Fragment>
 			<Body theme={theme} full>
 				<CodeBlock
-					text={snippet.get('contents')}
-					language={snippet.get('lang')}
+					text={snippet.get('contents', '')}
+					language={snippet.get('lang', '')}
 					theme={Object.assign(useDarkColors ? atomOneDark : atomOneLight, { backgroundColor: 'transparent' })}
 					showLineNumbers={false}
 					wrapLines
 				/>
-				<Lang>{LANGUAGES[snippet.get('lang')]}</Lang>
+				<Lang>{LANGUAGES.find(lang => lang.value === snippet.get('lang')).label}</Lang>
 				{copied && (
 					<Modal 
 						theme={theme} 
