@@ -12,5 +12,6 @@ export default {
 	background: ${darken(0.02, theme.bg)};
 	color: ${theme.fg};
 	height: ${height}%;
+	position: relative;
   `
 };

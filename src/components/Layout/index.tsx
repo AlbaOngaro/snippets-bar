@@ -32,10 +32,12 @@ const Layout = () => {
 			<Col width={35}>
 				<Sidebar theme={theme}>
 					<Header theme={theme}>
-						<Input 
+						<Input
 							theme={theme}
 							placeholder="search"
+							clearable
 							onChange={e => filterSnippets(e.target.value)} 
+							onClear={() => filterSnippets('')}
 						/>
 					</Header>
 					<List theme={theme}>
