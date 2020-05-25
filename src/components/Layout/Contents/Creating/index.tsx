@@ -28,22 +28,13 @@ const Creating = ({ theme, snippet, send }: ICreatingProps) => {
 
 	return (
 		<Fragment>
-			<Header height={30} theme={theme}>
+			<Header theme={theme}>
 				<Input 
-					theme={theme} 
-					height={50}
+					theme={theme}
 					type="text" 
 					placeholder="snippet name"
 					defaultValue={draft.get('name')} 
 					onChange={(e) => handleUpdate(['name'], e.target.value)}
-				/>
-				<Input 
-					theme={theme} 
-					height={50}
-					type="text" 
-					placeholder="tags"
-					defaultValue={draft.get('tags')} 
-					onChange={(e) => handleUpdate(['tags'], e.target.value)}
 				/>
 			</Header>
 			<Body theme={theme}>

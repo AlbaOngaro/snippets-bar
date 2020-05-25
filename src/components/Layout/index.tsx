@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useMachine } from '@xstate/react';
+import styled from 'styled-components';
 
 import { ThemeContext, SnippetsContext } from '../../contexts';
 import { SnippetMachine, Events } from '../../services/machines/snippet';
@@ -10,6 +11,16 @@ import Sidebar from "../Elements/Sidebar";
 import Input from '../Elements/Input';
 import * as Contents from './Contents';
 
+
+import styles from './styles';
+
+const List = styled.ul`
+	${styles.List}
+`;
+
+const Item = styled.li`
+	${styles.Item}
+`;
 
 const Layout = () => {
 	const theme = useContext(ThemeContext);
@@ -27,16 +38,17 @@ const Layout = () => {
 							onChange={e => filterSnippets(e.target.value)} 
 						/>
 					</Header>
-					<ul>
+					<List theme={theme}>
 						{snippets && snippets.map((snippet, idx) => (
-							<li 
+							<Item
+								theme={theme} 
 								key={snippet.get('id')}
 								onClick={() => send({ type: Events.SELECTED, id: idx })}
 							>
 								{snippet.get('name')}
-							</li>
+							</Item>
 						))}
-					</ul>
+					</List>
 				</Sidebar>
 			</Col>
 			<Col width={65}>
