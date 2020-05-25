@@ -2,6 +2,9 @@ import React, { Fragment, useState } from 'react';
 import styled from 'styled-components';
 import { fromJS } from 'immutable';
 import { uniqueId } from 'xstate/lib/utils';
+import { CodeBlock, atomOneDark, atomOneLight } from 'react-code-blocks'
+
+import { LANGUAGES } from '../../../../constants';
 
 import { Theme } from '../../../../types/theme';
 import { Snippet } from '../../../../types/snippets';
@@ -32,11 +35,24 @@ const Reading = ({ theme, snippet, send }: IReadingProps) => {
 	const [copied, setCopied] = useState(false);
 	const [deleting, setDeleting] = useState(false);
 
+	const { nativeTheme } = require("electron").remote;
+	const [useDarkColors, setUseDarkColors] = useState(nativeTheme.shouldUseDarkColors);
+
+	nativeTheme.on("updated", () => {
+		setUseDarkColors(!useDarkColors);
+	});
+
 	return (
 		<Fragment>
 			<Body theme={theme} full>
-				<code>{snippet.get('contents')}</code>
-				<Lang>{snippet.get('lang')}</Lang>
+				<CodeBlock
+					text={snippet.get('contents')}
+					language={snippet.get('lang')}
+					theme={Object.assign(useDarkColors ? atomOneDark : atomOneLight, { backgroundColor: 'transparent' })}
+					showLineNumbers={false}
+					wrapLines
+				/>
+				<Lang>{LANGUAGES[snippet.get('lang')]}</Lang>
 				{copied && (
 					<Modal 
 						theme={theme} 
