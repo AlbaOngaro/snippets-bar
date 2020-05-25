@@ -7,7 +7,7 @@ export interface Document extends RxDocument {
   content: string;
   editing: boolean;
   saved: boolean;
-  tags: [string];
+  lang: string,
 }
 
 export interface Snippet extends Map<any, any> {
@@ -16,7 +16,7 @@ export interface Snippet extends Map<any, any> {
   content: string;
   editing: boolean;
   saved: boolean;
-  tags: [string];
+  lang: string,
 }
 
 interface DraftMap extends Map<any, any> {
@@ -25,7 +25,7 @@ interface DraftMap extends Map<any, any> {
   content?: string;
   editing?: boolean;
   saved?: boolean;
-  tags?: [string];
+  lang?: string;
 }
 
 export type Draft = DraftMap;

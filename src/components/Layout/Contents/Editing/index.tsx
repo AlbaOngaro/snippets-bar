@@ -4,8 +4,12 @@ import { Theme } from '../../../../types/theme';
 import { Snippet } from '../../../../types/snippets';
 import { Events } from '../../../../services/machines/snippet';
 
+import { LANGUAGES } from '../../../../constants';
+
+
 import Header from '../../../Elements/Header';
 import Input from '../../../Elements/Input';
+import Select from '../../../Elements/Select';
 import Body from '../../../Elements/Body';
 import TextArea from '../../../Elements/TextArea';
 import Footer from '../../../Elements/Footer';
@@ -34,6 +38,11 @@ const Editing = ({ theme, snippet, send }: IEditingProps) => {
 					type="text" 
 					defaultValue={draft.get('name')} 
 					onChange={(e) => handleUpdate('name', e.target.value)}
+				/>
+				<Select 
+					options={LANGUAGES} 
+					theme={theme} 
+					onChange={(e) => handleUpdate('lang', e.target.value)} 
 				/>
 			</Header>
 			<Body theme={theme}>

@@ -1,7 +1,7 @@
 const snippetsSchema = {
   title: "Snippets schema",
   description: "describes a simple snippet",
-  version: 0,
+  version: 1,
   type: "object",
   properties: {
     id: {
@@ -22,12 +22,9 @@ const snippetsSchema = {
 		type: "boolean",
 		default: true,
 	},
-    tags: {
-      type: ["array", "null"],
-      items: {
-        type: "string"
-      }
-    }
+    lang: {
+		type: "string",
+	}
   },
   required: ["name", "contents"]
 };

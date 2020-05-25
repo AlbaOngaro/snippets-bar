@@ -13,5 +13,6 @@ export default {
 	color: ${theme.fg};
 	height: ${height}%;
 	position: relative;
+	display: flex;
   `
 };

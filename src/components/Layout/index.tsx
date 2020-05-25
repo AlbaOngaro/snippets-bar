@@ -24,7 +24,7 @@ const Item = styled.li`
 
 const Layout = () => {
 	const theme = useContext(ThemeContext);
-	const { snippets, filterSnippets } = useContext(SnippetsContext);
+	const {snippets, filterSnippets } = useContext(SnippetsContext);
 	const [current, send] = useMachine(SnippetMachine);
 
   	return (
@@ -43,6 +43,7 @@ const Layout = () => {
 					<List theme={theme}>
 						{snippets && snippets.map((snippet, idx) => (
 							<Item
+								active={snippet.get('id') === current.context.snippet.get('id')}
 								theme={theme} 
 								key={snippet.get('id')}
 								onClick={() => send({ type: Events.SELECTED, id: idx })}

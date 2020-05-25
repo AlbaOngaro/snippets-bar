@@ -12,5 +12,6 @@ export default {
 		background: ${darken(0.03, theme.bg)};
 		color: ${theme.fg};
 		padding: 24px 16px;
+		position: relative;
 	`
 };

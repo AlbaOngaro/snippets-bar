@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import styled from 'styled-components';
 import { fromJS } from 'immutable';
 import { uniqueId } from 'xstate/lib/utils';
 
@@ -20,6 +21,12 @@ interface IReadingProps {
 	send: Function,
 }
 
+const Lang = styled.small`
+	position: absolute;
+	bottom: 14px;
+	right: 16px;
+`;
+
 const Reading = ({ theme, snippet, send }: IReadingProps) => {
 
 	const [copied, setCopied] = useState(false);
@@ -29,6 +36,7 @@ const Reading = ({ theme, snippet, send }: IReadingProps) => {
 		<Fragment>
 			<Body theme={theme} full>
 				<code>{snippet.get('contents')}</code>
+				<Lang>{snippet.get('lang')}</Lang>
 				{copied && (
 					<Modal 
 						theme={theme} 

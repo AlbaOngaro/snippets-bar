@@ -6,7 +6,17 @@ RxDB.plugin(require("pouchdb-adapter-idb"));
 const collections = [
   {
     name: "snippets",
-    schema: require("./schema.ts").default
+	schema: require("./schema.ts").default,
+	migrationStrategies: {
+		1: (oldDoc) => {
+			oldDoc.lang = '';
+			delete oldDoc.tags;
+
+			debugger;
+
+			return oldDoc;
+		}
+	}
   }
 ];
 
