@@ -14,5 +14,9 @@ export default {
 		padding: 24px 16px;
 		position: relative;
 		overflow: scroll;
+
+		pre {
+			background: transparent !important;
+		}
 	`
 };

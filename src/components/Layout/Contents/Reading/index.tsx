@@ -2,7 +2,8 @@ import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import { fromJS } from "immutable";
 import { uniqueId } from "xstate/lib/utils";
-import { CodeBlock, atomOneDark, atomOneLight } from "react-code-blocks";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { tomorrow as style } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import ReactTooltip from "react-tooltip";
 import { Key } from 'ts-keycode-enum';
 
@@ -91,15 +92,12 @@ const Reading = ({ theme, snippet, send }: IReadingProps) => {
     <Fragment>
       <ReactTooltip backgroundColor={theme.bg} multiline={false} />
       <Body theme={theme} full>
-        <CodeBlock
-          text={snippet.get("contents", "")}
+        <SyntaxHighlighter
           language={snippet.get("lang", "")}
-          theme={Object.assign(useDarkColors ? atomOneDark : atomOneLight, {
-            backgroundColor: "transparent",
-          })}
-          showLineNumbers={false}
-          wrapLines
-        />
+		  style={style}
+        >
+			{snippet.get("contents", "")}
+		</SyntaxHighlighter>
         {snippet.get("lang") && (
           <Lang>
             {LANGUAGES.find((lang) => lang.value === snippet.get("lang")).label}
