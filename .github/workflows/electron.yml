@@ -9,6 +9,9 @@ jobs:
   get_version:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
+        with:
+          ref: master
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
