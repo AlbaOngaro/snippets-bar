@@ -74,7 +74,7 @@
   },
   "build": {
     "appId": "com.albaongaro.snippets-bar",
-    "productName": "Snippets Bar",
+    "productName": "SnippetsBar",
     "mac": {
       "category": "utility",
       "icon": "./build/icon.icns"
