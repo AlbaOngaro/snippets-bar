@@ -20,11 +20,10 @@ jobs:
         with:
           VERSION: ${{ steps.package-version.outputs.current-version}}
       - name: Printenv
-        run: |
-          echo "VERSION=${VERSION}"
-          printenv
+        run: echo "VERSION=${VERSION}"
 
   build:
+    needs: [version]
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@master
@@ -39,13 +38,20 @@ jobs:
         run: yarn build-electron
       - name: package
         run: yarn package
+      - name: upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: SnippetsBar
+          path: dist/SnippetsBar-${VERSION}.dmg
 
   upload:
-    needs: [build, version]
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - name: Check artifacts
-        run: ls dist
+      - name: download artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: SnippetsBar
       # - name: Upload to release
       #   uses: JasonEtco/upload-to-release@master
       #   with:
