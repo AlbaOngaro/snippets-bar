@@ -18,9 +18,10 @@ jobs:
       - name: set environment variables
         uses: allenevans/set-env@v1.0.0
         with:
-          APP_NAME: SnippetsBar-${{ steps.package-version.outputs.current-version}}
+          APP_NAME: SnippetsBar-${{ steps.package-version.outputs.current-version}}.dmg
+          APP_LOCATION: dist/SnippetsBar-${{ steps.package-version.outputs.current-version}}.dmg
       - name: Printenv
-        run: echo "APP_NAME=${APP_NAME}"
+        run: echo "APP_NAME=${APP_NAME} APP_LOCATION=${APP_LOCATION}"
 
   build:
     needs: [version]
@@ -42,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: SnippetsBar
-          path: dist/SnippetsBar-${VERSION}.dmg
+          path: ${APP_NAME}
 
   upload:
     needs: [build]
