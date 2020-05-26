@@ -18,9 +18,9 @@ jobs:
       - name: set environment variables
         uses: allenevans/set-env@v1.0.0
         with:
-          VERSION: ${{ steps.package-version.outputs.current-version}}
+          APP_NAME: SnippetsBar-${{ steps.package-version.outputs.current-version}}
       - name: Printenv
-        run: echo "VERSION=${VERSION}"
+        run: echo "APP_NAME=${APP_NAME}"
 
   build:
     needs: [version]
