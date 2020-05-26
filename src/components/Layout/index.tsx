@@ -90,7 +90,7 @@ const Layout = () => {
           </List>
         </Sidebar>
       </Col>
-      <Col width={65}>
+      <Col width={65} theme={theme}>
         {current.matches("reading") && (
           <Contents.Reading
             theme={theme}

@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import styled from "styled-components";
 
 import styles from "./styles";
+import { Theme } from "../../../../types/theme";
 
 const Column = styled.div`
   ${styles.Column}
@@ -10,6 +11,7 @@ const Column = styled.div`
 interface Props {
 	children: ReactNode,
 	width: number,
+	theme?: Theme,
 }
 
-export default ({ children, width, ...rest }: Props) => <Column width={width} {...rest}>{children}</Column>;
+export default ({ children, width, theme, ...rest }: Props) => <Column width={width} theme={theme} {...rest}>{children}</Column>;
