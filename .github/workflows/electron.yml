@@ -24,9 +24,11 @@ jobs:
         run: yarn install
       - name: Build App
         run: yarn build-electron
+      - name: see directory
+        run: ls
       - name: Upload to release
         uses: JasonEtco/upload-to-release@master
         with:
-          args: Snippets Bar-${{ steps.package-version.outputs.current-version}}.dmg
+          args: ./dist/Snippets Bar-${{ steps.package-version.outputs.current-version}}.dmg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
