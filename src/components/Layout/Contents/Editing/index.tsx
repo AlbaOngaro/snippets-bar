@@ -41,7 +41,8 @@ const Editing = ({ theme, snippet, send }: IEditingProps) => {
 				/>
 				<Select 
 					options={LANGUAGES} 
-					theme={theme} 
+					theme={theme}
+					value={draft.get('lang')}
 					onChange={(e) => handleUpdate('lang', e.target.value)} 
 				/>
 			</Header>

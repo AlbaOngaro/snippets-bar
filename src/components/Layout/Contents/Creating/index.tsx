@@ -43,7 +43,7 @@ const Creating = ({ theme, snippet, send }: ICreatingProps) => {
         />
         <Select
           options={LANGUAGES}
-          theme={theme}
+		  theme={theme}
           onChange={(e) => handleUpdate(["lang"], e.target.value)}
         />
       </Header>
@@ -55,7 +55,10 @@ const Creating = ({ theme, snippet, send }: ICreatingProps) => {
         />
       </Body>
       <Footer theme={theme}>
-        <Button onClick={() => send({ type: Events.SAVED, snippet: draft })}>
+		<Button 
+			disabled={!draft.get('contents') || !draft.get('name')} 
+			onClick={() => send({ type: Events.SAVED, snippet: draft })}
+		>
           <Save /> Save
         </Button>
       </Footer>

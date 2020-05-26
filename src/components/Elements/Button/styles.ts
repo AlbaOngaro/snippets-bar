@@ -27,6 +27,11 @@ export default {
 		cursor: pointer;
 	}
 
+	&:disabled {
+		opacity: .7;
+		pointer-events: none;
+	}
+
 	svg {
 		width: 15px;
 		height: 100%;

@@ -14,13 +14,13 @@ console.log("path: ", path.join(__dirname, "/../build"));
 function selectIcon() {
   if (process.env.NODE_ENV === "dev") {
     return nativeTheme.shouldUseDarkColors
-      ? "public/icon-light.png"
-      : "public/icon-dark.png";
+      ? "public/TrayLightTemplate.png"
+      : "public/TrayDarkTemplate.png";
   }
 
   return nativeTheme.shouldUseDarkColors
-    ? path.join(__dirname, "../icon-light.png")
-    : path.join(__dirname, "../icon-dark.png");
+    ? path.join(__dirname, "../TrayLightTemplate.png")
+    : path.join(__dirname, "../TrayDarkTemplate.png");
 }
 
 const mb = menubar({

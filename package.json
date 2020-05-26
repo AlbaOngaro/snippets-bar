@@ -1,5 +1,6 @@
 {
   "name": "snippets-bar-rebooted",
+  "description": "A utility app to store useful snippets directly in the mac sidebar",
   "version": "0.1.0",
   "private": true,
   "homepage": "./",
@@ -68,6 +69,10 @@
     ]
   },
   "build": {
+	"appId": "com.albaongaro.snippets-bar",
+    "mac": {
+	  "category": "utility"
+	},
 	"files": [
 		"build/**/*",
 		"node_modules/**/*"
