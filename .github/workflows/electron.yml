@@ -17,9 +17,9 @@ jobs:
         with:
           VERSION: ${{ steps.package-version.outputs.current-version}}
       - name: Printenv
-          run: |
-            echo "VERSION=${VERSION}"
-            printenv
+        run: |
+          echo "VERSION=${VERSION}"
+          printenv
 
   build:
     runs-on: macOS-latest
