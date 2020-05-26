@@ -29,7 +29,7 @@ jobs:
       - name: package
         run: yarn package
       - name: see directory
-        run: ls
+        run: ls dist
       - name: Upload to release
         uses: JasonEtco/upload-to-release@master
         with:
