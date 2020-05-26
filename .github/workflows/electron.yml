@@ -8,17 +8,18 @@ on:
 jobs:
   get_version:
     runs-on: ubuntu-latest
-    - name: get-npm-version
+    steps:
+      - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
-    - name: set environment variables
-        uses: allenevans/set-env@v1.0.0
-        with:
-          VERSION: ${{ steps.package-version.outputs.current-version}}
-    - name: Printenv
-        run: |
-          echo "VERSION=${VERSION}"
-          printenv
+      - name: set environment variables
+          uses: allenevans/set-env@v1.0.0
+          with:
+            VERSION: ${{ steps.package-version.outputs.current-version}}
+      - name: Printenv
+          run: |
+            echo "VERSION=${VERSION}"
+            printenv
 
   build:
     runs-on: macOS-latest
