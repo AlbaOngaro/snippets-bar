@@ -9,7 +9,7 @@ const {
 
 require("dotenv").config();
 
-console.log("path: ", path.join(__dirname, "/../build"));
+const isDev = process.env.NODE_ENV === "dev";
 
 function selectIcon() {
   if (process.env.NODE_ENV === "dev") {
@@ -33,23 +33,24 @@ const mb = menubar({
     }),
   icon: selectIcon(),
   browserWindow: {
-    alwaysOnTop: process.env.NODE_ENV === "dev",
+    alwaysOnTop: isDev,
     width: 600,
-	height: 350,
-	icon: url.format({
-		pathname: path.join(__dirname, '../Icon.icns'),
-		protocol: 'file:',
-		slashes: true
-	}),
+    height: 350,
+    icon: url.format({
+      pathname: path.join(__dirname, "../Icon.icns"),
+      protocol: "file:",
+      slashes: true,
+    }),
     webPreferences: {
       nodeIntegration: true,
-	}
+      devTools: isDev,
+    },
   },
-  showDockIcon:  process.env.NODE_ENV === "dev",
+  showDockIcon: isDev,
 });
 
 mb.on("ready", () => {
-  if (process.env.NODE_ENV === "dev") {
+  if (isDev) {
     installExtension(REACT_DEVELOPER_TOOLS)
       .then((name) => console.log(`Added Extension:  ${name}`))
       .catch((err) => console.log("An error occurred: ", err));

@@ -1,5 +1,5 @@
 {
-  "name": "snippets-bar",
+  "name": "snippet-bar",
   "description": "A utility app to store useful snippets directly in the mac sidebar",
   "version": "0.1.0",
   "private": true,
@@ -70,6 +70,7 @@
   },
   "build": {
 	"appId": "com.albaongaro.snippets-bar",
+	"productName": "Snippets Bar",
     "mac": {
 	  "category": "utility",
 	  "icon": "./build/icon.icns"
