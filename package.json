@@ -1,7 +1,7 @@
 {
   "name": "snippet-bar",
   "description": "A utility app to store useful snippets directly in the mac sidebar",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "homepage": "./",
   "main": "electron/main.js",
@@ -31,6 +31,7 @@
     "react-tooltip": "^4.2.6",
     "rxdb": "^8.7.5",
     "rxjs": "^6.5.4",
+    "standard-version": "^8.0.0",
     "styled-components": "^5.0.0",
     "ts-keycode-enum": "^1.0.6",
     "typescript": "^3.7.5",
@@ -53,7 +54,8 @@
     "dev": "nf start -p 3000",
     "build-electron": "yarn build && cp -r electron/. build/electron",
     "package": "electron-builder build -c.extraMetadata.main=build/electron/main.js --publish never",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "release": "standard-version"
   },
   "eslintConfig": {
     "extends": "react-app"
