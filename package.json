@@ -16,7 +16,6 @@
     "@types/react-dom": "^16.9.5",
     "@types/styled-components": "^4.4.2",
     "@xstate/react": "^0.8.1",
-    "electron": "^7.1.10",
     "immutable": "^4.0.0-rc.12",
     "md5": "^2.2.1",
     "menubar": "^7.2.0",
@@ -30,13 +29,14 @@
     "rxjs": "^6.5.4",
     "styled-components": "^5.0.0",
     "typescript": "^3.7.5",
-    "xstate": "^4.7.7"
+	"xstate": "^4.7.7",
+	"electron-devtools-installer": "^2.2.4",
+	"babel-plugin-styled-components": "^1.10.7"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^1.10.7",
+	"electron": "^7.1.10",
     "dotenv": "^8.2.0",
     "electron-builder": "^22.2.0",
-    "electron-devtools-installer": "^2.2.4",
     "foreman": "^3.0.1",
     "nodemon": "^2.0.2",
     "react-app-rewired": "^2.1.5"
@@ -71,7 +71,11 @@
     "appId": "com.albaongaro.snippets-bar",
     "mac": {
       "icon": "",
-      "category": "utility"
-    }
+	  "category": "utility"
+	},
+	"files": [
+		"build/**/*",
+		"node_modules/**/*"
+	]
   }
 }

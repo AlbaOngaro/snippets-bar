@@ -52,7 +52,7 @@ const Reading = ({ theme, snippet, send }: IReadingProps) => {
 					showLineNumbers={false}
 					wrapLines
 				/>
-				<Lang>{LANGUAGES.find(lang => lang.value === snippet.get('lang')).label}</Lang>
+				{snippet.get('lang') && (<Lang>{LANGUAGES.find(lang => lang.value === snippet.get('lang')).label}</Lang>)}
 				{copied && (
 					<Modal 
 						theme={theme} 
