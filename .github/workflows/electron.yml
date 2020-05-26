@@ -41,6 +41,7 @@ jobs:
         run: yarn package
 
   upload:
+    needs: [build, version]
     runs-on: ubuntu-latest
     steps:
       - name: Check artifacts
