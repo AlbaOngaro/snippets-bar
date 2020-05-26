@@ -42,8 +42,8 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: SnippetsBar
-          path: ${APP_NAME}
+          name: ${{env.APP_NAME}}
+          path: ${{env.APP_LOCATION}}
 
   upload:
     needs: [build]
@@ -52,10 +52,10 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v1
         with:
-          name: SnippetsBar
-      # - name: Upload to release
-      #   uses: JasonEtco/upload-to-release@master
-      #   with:
-      #     args: dist/SnippetsBar-${VERSION}.dmg
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: ${{env.APP_NAME}}
+      - name: Upload to release
+        uses: JasonEtco/upload-to-release@master
+        with:
+          args: ${{env.APP_NAME}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
