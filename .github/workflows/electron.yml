@@ -20,10 +20,14 @@ jobs:
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
+      - name: get current version
+        run: echo 'current version' ${{ steps.package-version.outputs.current-version}}
       - name: Install dependencies
         run: yarn install
-      - name: Build App
+      - name: build app
         run: yarn build-electron
+      - name: package
+        run: yarn package
       - name: see directory
         run: ls
       - name: Upload to release
