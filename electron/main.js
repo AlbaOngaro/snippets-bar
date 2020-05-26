@@ -35,11 +35,17 @@ const mb = menubar({
   browserWindow: {
     alwaysOnTop: process.env.NODE_ENV === "dev",
     width: 600,
-    height: 350,
+	height: 350,
+	icon: url.format({
+		pathname: path.join(__dirname, '../Icon.icns'),
+		protocol: 'file:',
+		slashes: true
+	}),
     webPreferences: {
       nodeIntegration: true,
-    },
+	}
   },
+  showDockIcon:  process.env.NODE_ENV === "dev",
 });
 
 mb.on("ready", () => {

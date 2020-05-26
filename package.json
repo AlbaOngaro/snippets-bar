@@ -1,5 +1,5 @@
 {
-  "name": "snippets-bar-rebooted",
+  "name": "snippets-bar",
   "description": "A utility app to store useful snippets directly in the mac sidebar",
   "version": "0.1.0",
   "private": true,
@@ -50,7 +50,7 @@
     "electron": "electron .",
     "dev": "nf start -p 3000",
 	"build-electron": "yarn build && cp -r electron/. build/electron",
-    "package": "electron-builder build --mac -c.extraMetadata.main=build/electron/main.js --publish never",
+    "package": "electron-builder build -c.extraMetadata.main=build/electron/main.js --publish never",
     "postinstall": "electron-builder install-app-deps"
   },
   "eslintConfig": {
@@ -71,7 +71,8 @@
   "build": {
 	"appId": "com.albaongaro.snippets-bar",
     "mac": {
-	  "category": "utility"
+	  "category": "utility",
+	  "icon": "./build/icon.icns"
 	},
 	"files": [
 		"build/**/*",
