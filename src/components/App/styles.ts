@@ -1,9 +1,7 @@
 export default {
   global: `
-  	@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
-	
 	* {
-		font-family: 'Raleway', sans-serif;
+		font-family: 'Roboto', sans-serif;
 		box-sizing: border-box;
 	}
 

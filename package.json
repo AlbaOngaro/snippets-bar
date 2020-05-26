@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "./",
-  "main": "public/electron.js",
+  "main": "electron/main.js",
   "author": "Alba Ongaro",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -48,8 +48,8 @@
     "eject": "react-scripts eject",
     "electron": "electron .",
     "dev": "nf start -p 3000",
-    "pack": "electron-builder --dir",
-    "dist": "yarn build && electron-builder",
+	"build-electron": "yarn build && cp -r electron/. build/electron",
+    "package": "electron-builder build --mac -c.extraMetadata.main=build/electron/main.js --publish never",
     "postinstall": "electron-builder install-app-deps"
   },
   "eslintConfig": {
@@ -68,11 +68,6 @@
     ]
   },
   "build": {
-    "appId": "com.albaongaro.snippets-bar",
-    "mac": {
-      "icon": "",
-	  "category": "utility"
-	},
 	"files": [
 		"build/**/*",
 		"node_modules/**/*"

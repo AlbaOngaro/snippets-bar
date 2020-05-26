@@ -9,7 +9,7 @@ const {
 
 require("dotenv").config();
 
-console.log('path: ', path.join(__dirname, "/../build"));
+console.log("path: ", path.join(__dirname, "/../build"));
 
 function selectIcon() {
   if (process.env.NODE_ENV === "dev") {
@@ -19,15 +19,15 @@ function selectIcon() {
   }
 
   return nativeTheme.shouldUseDarkColors
-    ? path.join(__dirname, "/../build/icon-light.png")
-    : path.join(__dirname, "/../build/icon-dark.png");
+    ? path.join(__dirname, "../icon-light.png")
+    : path.join(__dirname, "../icon-dark.png");
 }
 
 const mb = menubar({
   index:
     process.env.ELECTRON_START_URL ||
     url.format({
-      pathname: path.join(__dirname, "/../build/index.html"),
+      pathname: path.join(__dirname, "../index.html"),
       protocol: "file:",
       slashes: true,
     }),
