@@ -17,6 +17,8 @@
     "@types/react-dom": "^16.9.5",
     "@types/styled-components": "^4.4.2",
     "@xstate/react": "^0.8.1",
+    "babel-plugin-styled-components": "^1.10.7",
+    "electron-devtools-installer": "^2.2.4",
     "immutable": "^4.0.0-rc.12",
     "md5": "^2.2.1",
     "menubar": "^7.2.0",
@@ -26,17 +28,17 @@
     "react-code-blocks": "^0.0.7",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0",
+    "react-tooltip": "^4.2.6",
     "rxdb": "^8.7.5",
     "rxjs": "^6.5.4",
     "styled-components": "^5.0.0",
+    "ts-keycode-enum": "^1.0.6",
     "typescript": "^3.7.5",
-	"xstate": "^4.7.7",
-	"electron-devtools-installer": "^2.2.4",
-	"babel-plugin-styled-components": "^1.10.7"
+    "xstate": "^4.7.7"
   },
   "devDependencies": {
-	"electron": "^7.1.10",
     "dotenv": "^8.2.0",
+    "electron": "^7.1.10",
     "electron-builder": "^22.2.0",
     "foreman": "^3.0.1",
     "nodemon": "^2.0.2",
@@ -49,7 +51,7 @@
     "eject": "react-scripts eject",
     "electron": "electron .",
     "dev": "nf start -p 3000",
-	"build-electron": "yarn build && cp -r electron/. build/electron",
+    "build-electron": "yarn build && cp -r electron/. build/electron",
     "package": "electron-builder build -c.extraMetadata.main=build/electron/main.js --publish never",
     "postinstall": "electron-builder install-app-deps"
   },
@@ -69,15 +71,15 @@
     ]
   },
   "build": {
-	"appId": "com.albaongaro.snippets-bar",
-	"productName": "Snippets Bar",
+    "appId": "com.albaongaro.snippets-bar",
+    "productName": "Snippets Bar",
     "mac": {
-	  "category": "utility",
-	  "icon": "./build/icon.icns"
-	},
-	"files": [
-		"build/**/*",
-		"node_modules/**/*"
-	]
+      "category": "utility",
+      "icon": "./build/icon.icns"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ]
   }
 }

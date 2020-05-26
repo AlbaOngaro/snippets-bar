@@ -1,5 +1,8 @@
 import React, { ChangeEvent, Fragment, useRef } from 'react';
 import styled from 'styled-components';
+import { Key } from "ts-keycode-enum";
+
+import { useShortcut } from '../../../hooks';
 
 import { Theme } from '../../../types/theme';
 
@@ -20,13 +23,25 @@ interface IInputProps {
 	placeholder?: string,
 	defaultValue?: string,
 	withIcon?: boolean,
-	clearable?: boolean
+	clearable?: boolean,
+	ref?: any,
 	onChange?: (e: ChangeEvent<HTMLInputElement>) => void,
 	onClear?: () => void,
 }
 
-export default ({ theme, type, defaultValue, onChange, placeholder, height, clearable = false, onClear }: IInputProps) => {
+export default ({ theme, ref, type, defaultValue, onChange, placeholder, height, clearable = false, onClear }: IInputProps) => {
 	const inputRef = useRef(null);
+
+	useShortcut([
+		{
+			code: Key.F,
+			shift: false,
+			meta: true,
+			callback: () => {
+				inputRef.current.focus();
+			},
+		}
+	]);
 
 	return (
 		<Fragment>

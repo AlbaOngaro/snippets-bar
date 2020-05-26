@@ -1,11 +1,14 @@
 import React, { Fragment, useState, Dispatch, SetStateAction } from 'react';
+import ReactTooltip from "react-tooltip";
+import { Key } from 'ts-keycode-enum';
+
+import { useShortcut } from '../../../../hooks';
 
 import { Theme } from '../../../../types/theme';
 import { Snippet } from '../../../../types/snippets';
 import { Events } from '../../../../services/machines/snippet';
 
 import { LANGUAGES } from '../../../../constants';
-
 
 import Header from '../../../Elements/Header';
 import Input from '../../../Elements/Input';
@@ -30,8 +33,28 @@ const Editing = ({ theme, snippet, send }: IEditingProps) => {
 		setDraft(updated);
 	}
 
+	useShortcut([
+		{
+			code: Key.Escape,
+			shift: false,
+			meta: false,
+			callback: () => {
+				send({ type: Events.SELECTED, id: 0 });
+			}
+		},
+		{
+			code: Key.S,
+			shift: false,
+			meta: true,
+			callback: () => {
+				send({ type: Events.SAVED, snippet: draft })
+			}
+		},
+	])
+
 	return (
 		<Fragment>
+			<ReactTooltip backgroundColor={theme.bg} multiline={false} />
 			<Header theme={theme}>
 				<Input 
 					theme={theme} 
@@ -54,7 +77,10 @@ const Editing = ({ theme, snippet, send }: IEditingProps) => {
 				/>
 			</Body>
 			<Footer theme={theme}>
-				<Button onClick={() => send({ type: Events.SAVED, snippet: draft })}>
+				<Button
+					data-tip="⌘ + S" 
+					onClick={() => send({ type: Events.SAVED, snippet: draft })}
+				>
 					<Save /> Save
 				</Button>
 			</Footer>

@@ -1,4 +1,6 @@
 import React, { Fragment, useState, Dispatch, SetStateAction } from "react";
+import ReactTooltip from "react-tooltip";
+import { Key } from "ts-keycode-enum";
 
 import { Theme } from "../../../../types/theme";
 import { Draft } from "../../../../types/snippets";
@@ -30,12 +32,22 @@ const Creating = ({ theme, snippet, send }: ICreatingProps) => {
 
   useShortcut([
 	{
-	  code: 27,
+	  code: Key.Escape,
 	  shift: false,
 	  meta: false,
 	  callback: () => {
 		  send({ type: Events.SELECTED, id: 0 });
 	  }
+	},
+	{
+		code: Key.S,
+		shift: false,
+		meta: true,
+		callback: () => {
+			if (!!draft.get('contents') || !!draft.get('name')) {
+				send({ type: Events.SAVED, snippet: draft })
+			}
+		}
 	}
 ]);
 
@@ -46,6 +58,7 @@ const Creating = ({ theme, snippet, send }: ICreatingProps) => {
 
   return (
     <Fragment>
+	  <ReactTooltip backgroundColor={theme.bg} multiline={false} />
       <Header theme={theme}>
         <Input
           theme={theme}
@@ -69,6 +82,7 @@ const Creating = ({ theme, snippet, send }: ICreatingProps) => {
       </Body>
       <Footer theme={theme}>
 		<Button 
+			data-tip="⌘ + S"
 			disabled={!draft.get('contents') || !draft.get('name')} 
 			onClick={() => send({ type: Events.SAVED, snippet: draft })}
 		>
