@@ -4,6 +4,8 @@ import { Theme } from "../../../../types/theme";
 import { Draft } from "../../../../types/snippets";
 import { Events } from "../../../../services/machines/snippet";
 
+import { useShortcut } from '../../../../hooks';
+
 import { LANGUAGES } from "../../../../constants";
 
 import Header from "../../../Elements/Header";
@@ -25,6 +27,17 @@ const Creating = ({ theme, snippet, send }: ICreatingProps) => {
   const [draft, setDraft]: [Draft, Dispatch<SetStateAction<Draft>>] = useState(
     snippet
   );
+
+  useShortcut([
+	{
+	  code: 27,
+	  shift: false,
+	  meta: false,
+	  callback: () => {
+		  send({ type: Events.SELECTED, id: 0 });
+	  }
+	}
+]);
 
   const handleUpdate = (key: string[], val: string) => {
     const updated: Draft = draft.setIn(key, val);

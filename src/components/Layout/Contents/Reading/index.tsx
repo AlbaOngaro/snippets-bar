@@ -4,6 +4,8 @@ import { fromJS } from 'immutable';
 import { uniqueId } from 'xstate/lib/utils';
 import { CodeBlock, atomOneDark, atomOneLight } from 'react-code-blocks'
 
+import { useShortcut } from '../../../../hooks';
+
 import { LANGUAGES } from '../../../../constants';
 
 import { Theme } from '../../../../types/theme';
@@ -41,6 +43,17 @@ const Reading = ({ theme, snippet, send }: IReadingProps) => {
 	nativeTheme.on("updated", () => {
 		setUseDarkColors(!useDarkColors);
 	});
+
+	useShortcut([
+		{
+			code: 78,
+			shift: false,
+			meta: true,
+			callback: () => {
+				send({ type: Events.CREATED, snippet: fromJS({ id: uniqueId() })});
+			}
+		}
+	])
 
 	return (
 		<Fragment>
