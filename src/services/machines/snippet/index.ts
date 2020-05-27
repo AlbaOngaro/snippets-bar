@@ -6,7 +6,6 @@ import { getSnippetRequest, updateSnippetRequest, deleteSnippetRequest } from '.
 
 export interface SnippetContextType {
 	snippet: Snippet | Draft,
-	editing: boolean,
 };
 
 export interface SnippetStateSchema {
@@ -37,10 +36,9 @@ export type SnippetEvent =
 
 const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 	id: 'snippet',
-	context: {
-		snippet: fromJS({}),
-		editing: false,
-	},
+context: {
+  snippet: fromJS({}),
+},
 	initial: 'loading',
 	states: {
 		loading: {
@@ -82,29 +80,17 @@ const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 				[Events.EDIT]: {
 				  	target: 'editing',
 				  	actions: assign((_, { snippet }) => ({
-						snippet,
-						editing: true,
-					}))
-				},
-				[Events.SELECTED]: {
-					target: 'loading',
-					actions: assign(() => ({
-						editing: false,
-					}))
-				},
-				[Events.DELETED]: {
-					target: 'deleting',
-					actions: assign(() => ({
-						editing: false,
-					}))
+							snippet,
+						}))
 				},
 				[Events.CREATED]: {
 					target: 'creating',
 					actions: assign((_, { snippet }) => ({
-						snippet,
-						editing: true,
+						snippet
 					}))
-				}
+				},
+				[Events.SELECTED]: 'loading',
+				[Events.DELETED]: 'deleting',
 			}
 		},
 		editing: {
@@ -113,15 +99,9 @@ const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 					target: 'saving',
 					actions: assign((_, { snippet }) => ({
 						snippet,
-						editing: false,
 					}))
 				},
-				[Events.SELECTED]: {
-					target: 'loading',
-					actions: assign(() => ({
-						editing: false,
-					}))
-				},
+				[Events.SELECTED]: 'loading',
 			}
 		},
 		creating: {
@@ -130,15 +110,9 @@ const SnippetMachine = Machine<any, SnippetStateSchema, SnippetEvent>({
 					target: 'saving',
 					actions: assign((_, { snippet }) => ({
 						snippet,
-						editing: false,
 					})) 
 				},
-				[Events.SELECTED]: {
-					target: 'loading',
-					actions: assign(() => ({
-						editing: false,
-					}))
-				},
+				[Events.SELECTED]: 'loading',
 			}
 		}
 	}
