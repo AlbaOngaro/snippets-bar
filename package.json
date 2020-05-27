@@ -1,7 +1,7 @@
 {
   "name": "snippet-bar",
   "description": "A utility app to store useful snippets directly in the mac sidebar",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "homepage": "./",
   "main": "electron/main.js",
@@ -86,7 +86,7 @@
   },
   "standard-version": {
     "scripts": {
-      "posttag": "echo Hello World!"
+      "posttag": "git push --follow-tags origin master"
     }
   }
 }
