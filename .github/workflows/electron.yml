@@ -41,17 +41,18 @@ jobs:
         with:
           name: SnippetsBar-${{needs.version.outputs.version}}
           path: dist/SnippetsBar-${{needs.version.outputs.version}}.dmg
-  # upload:
-  #   needs: [version, build]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: download artifact
-  #       uses: actions/download-artifact@v1
-  #       with:
-  #         name: SnippetsBar-${{env.APP_VERSION}}
-  #     - name: Upload to release
-  #       uses: JasonEtco/upload-to-release@master
-  #       with:
-  #         args: SnippetsBar-${{env.VERSION}}
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  upload:
+    needs: [version, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: SnippetsBar-${{needs.version.outputs.version}}
+      - name: Upload to release
+        uses: JasonEtco/upload-to-release@master
+        with:
+          args: SnippetsBar-${{needs.version.outputs.version}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
