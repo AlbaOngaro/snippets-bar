@@ -44,7 +44,6 @@ The app now is working pretty good, but there still are some features I'd like t
 - [xstate](https://github.com/davidkpiano/xstate)
 - Typescript
 
-------
+---
 
 Made with ❤️ (and a ton of ☕️) in Switzerland
-
