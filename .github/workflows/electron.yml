@@ -9,7 +9,7 @@ jobs:
   version:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.step1.outputs.version }}
+      version: ${{ steps.step1.outputs.version }}
     steps:
       - uses: actions/checkout@master
         with:
@@ -24,24 +24,23 @@ jobs:
     needs: [version]
     runs-on: macOS-latest
     steps:
-      - run: echo ${{needs.version.outputs.output1}}
-      # - uses: actions/checkout@master
-      #   with:
-      #     ref: master
-      # - uses: actions/setup-node@master
-      #   with:
-      #     node-version: 10.16
-      # - name: Install dependencies
-      #   run: yarn install
-      # - name: build app
-      #   run: yarn build-electron
-      # - name: package
-      #   run: yarn package
-      # - name: upload artifact
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: SnippetsBar-${{env.VERSION}}
-      #     path: dist/SnippetsBar-${{env.VERSION}}.dmg
+      - uses: actions/checkout@master
+        with:
+          ref: master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 10.16
+      - name: Install dependencies
+        run: yarn install
+      - name: build app
+        run: yarn build-electron
+      - name: package
+        run: yarn package
+      - name: upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: SnippetsBar-${{needs.version.outputs.version}}
+          path: dist/SnippetsBar-${{needs.version.outputs.version}}.dmg
   # upload:
   #   needs: [version, build]
   #   runs-on: ubuntu-latest
