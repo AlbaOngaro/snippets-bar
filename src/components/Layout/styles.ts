@@ -12,6 +12,7 @@ export default {
 		padding: 16px 32px;
 		border-bottom: 1px solid ${transparentize(0.5, theme.fg)};
 		background: ${active ? darken(0.02, theme.bg) : ''};
+		font-size: 14px;
 
 		&:hover {
 			background: ${darken(0.02, theme.bg)};
