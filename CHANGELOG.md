@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/AlbaOngaro/snippets-bar/compare/v1.0.0...v1.0.1) (2020-05-27)
+
+
+### Features
+
+* added badge ([36e27a2](https://github.com/AlbaOngaro/snippets-bar/commit/36e27a2f5acd721e042ea5ae3b66b27b32b1b04d))
+
+
+### Bug Fixes
+
+* fixed versioning ([2420c67](https://github.com/AlbaOngaro/snippets-bar/commit/2420c6744ff2d6516dfb98f57e4bea69864f2ae7))
+
 ## 1.1.0 (2020-05-27)
 
 ### Features

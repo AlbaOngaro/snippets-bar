@@ -1,7 +1,7 @@
 {
   "name": "snippet-bar",
   "description": "A utility app to store useful snippets directly in the mac sidebar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "homepage": "./",
   "main": "electron/main.js",
