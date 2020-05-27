@@ -18,7 +18,7 @@ jobs:
       - name: set environment variables
         uses: allenevans/set-env@v1.0.0
         with:
-          VERSION: ${{ steps.package-version.outputs.current-version}}
+          APP_VERSION: ${{ steps.package-version.outputs.current-version}}
 
   build:
     needs: [version]
@@ -39,8 +39,8 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: SnippetsBar-${{env.VERSION}}
-          path: dist/SnippetsBar-${{env.VERSION}}.dmg
+          name: SnippetsBar-${{env.APP_VERSION}}
+          path: dist/SnippetsBar-${{env.APP_VERSION}}.dmg
 
   upload:
     needs: [build]
@@ -49,10 +49,10 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v1
         with:
-          name: SnippetsBar-${{env.VERSION}}
+          name: SnippetsBar-${{env.APP_VERSION}}
       - name: Upload to release
         uses: JasonEtco/upload-to-release@master
         with:
-          args: SnippetsBar-${{env.VERSION}}
+          args: SnippetsBar-${{env.APP_VERSION}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
