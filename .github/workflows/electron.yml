@@ -24,6 +24,8 @@ jobs:
     needs: [version]
     runs-on: macOS-latest
     steps:
+      - name: "check env"
+        run: echo "APP_VERSION:${APP_VERSION}"
       - uses: actions/checkout@master
         with:
           ref: master
