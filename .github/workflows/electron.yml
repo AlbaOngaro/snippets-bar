@@ -25,36 +25,35 @@ jobs:
     runs-on: macOS-latest
     steps:
       - name: "check env"
-        run: echo "VERSION:${{needs.version.outputs.version}}"
-      - uses: actions/checkout@master
-        with:
-          ref: master
-      - uses: actions/setup-node@master
-        with:
-          node-version: 10.16
-      - name: Install dependencies
-        run: yarn install
-      - name: build app
-        run: yarn build-electron
-      - name: package
-        run: yarn package
-      - name: upload artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: SnippetsBar-${{env.VERSION}}
-          path: dist/SnippetsBar-${{env.VERSION}}.dmg
-
-  upload:
-    needs: [version, build]
-    runs-on: ubuntu-latest
-    steps:
-      - name: download artifact
-        uses: actions/download-artifact@v1
-        with:
-          name: SnippetsBar-${{env.APP_VERSION}}
-      - name: Upload to release
-        uses: JasonEtco/upload-to-release@master
-        with:
-          args: SnippetsBar-${{env.VERSION}}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "VERSION:"${{needs.version.outputs.version}}
+      # - uses: actions/checkout@master
+      #   with:
+      #     ref: master
+      # - uses: actions/setup-node@master
+      #   with:
+      #     node-version: 10.16
+      # - name: Install dependencies
+      #   run: yarn install
+      # - name: build app
+      #   run: yarn build-electron
+      # - name: package
+      #   run: yarn package
+      # - name: upload artifact
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: SnippetsBar-${{env.VERSION}}
+      #     path: dist/SnippetsBar-${{env.VERSION}}.dmg
+  # upload:
+  #   needs: [version, build]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: download artifact
+  #       uses: actions/download-artifact@v1
+  #       with:
+  #         name: SnippetsBar-${{env.APP_VERSION}}
+  #     - name: Upload to release
+  #       uses: JasonEtco/upload-to-release@master
+  #       with:
+  #         args: SnippetsBar-${{env.VERSION}}
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
