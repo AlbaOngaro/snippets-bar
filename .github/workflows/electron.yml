@@ -15,17 +15,15 @@ jobs:
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
-      - name: set environment variables
-        uses: allenevans/set-env@v1.0.0
-        with:
-          APP_VERSION: ${{ steps.package-version.outputs.current-version}}
+      - outputs:
+          version: ${{ steps.package-version.outputs.current-version}}
 
   build:
     needs: [version]
     runs-on: macOS-latest
     steps:
       - name: "check env"
-        run: echo "APP_VERSION:${APP_VERSION}"
+        run: echo "VERSION:${{needs.version.outputs.version}}"
       - uses: actions/checkout@master
         with:
           ref: master
@@ -41,11 +39,11 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: SnippetsBar-${{env.APP_VERSION}}
-          path: dist/SnippetsBar-${{env.APP_VERSION}}.dmg
+          name: SnippetsBar-${{env.VERSION}}
+          path: dist/SnippetsBar-${{env.VERSION}}.dmg
 
   upload:
-    needs: [build]
+    needs: [version, build]
     runs-on: ubuntu-latest
     steps:
       - name: download artifact
@@ -55,6 +53,6 @@ jobs:
       - name: Upload to release
         uses: JasonEtco/upload-to-release@master
         with:
-          args: SnippetsBar-${{env.APP_VERSION}}
+          args: SnippetsBar-${{env.VERSION}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
