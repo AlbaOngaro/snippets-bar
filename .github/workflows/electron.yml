@@ -8,6 +8,8 @@ on:
 jobs:
   version:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.output.version }}
     steps:
       - uses: actions/checkout@master
         with:
@@ -15,9 +17,8 @@ jobs:
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
-      - name: "output version"
-        outputs:
-          version: ${{ steps.package-version.outputs.current-version}}
+      - id: "version"
+        run: echo "::set-output name=version::"${{ steps.package-version.outputs.current-version}}
 
   build:
     needs: [version]
