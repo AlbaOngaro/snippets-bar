@@ -15,7 +15,7 @@ const getSnippetRequest = async (id?: number): Promise<Snippet | Draft> => {
 			}) || fromJS([])
       );
 
-	const snippet: Snippet | Draft = snippets.get(id || 0, Map());
+	const snippet: Snippet | Draft = snippets.find(snippet => snippet.get('id') === id) || snippets.first();
 
 	return snippet;
 };

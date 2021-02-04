@@ -40,8 +40,8 @@ const SnippetsProvider = ({ children }: Props) => {
     getAllSnippetsRequest();
   }, []);
 
-  const filterSnippets = (term: string): void => {
-    filterSnippetsRequest(term);
+  const filterSnippets = async (term: string): Promise<any> => {
+    await filterSnippetsRequest(term);
   };
 
   const values: SnippetsContextInterface = {

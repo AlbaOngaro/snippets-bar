@@ -1,4 +1,8 @@
+import { darken } from 'polished';
+import { Theme } from '../../../../types/theme';
+
 interface IRowProps {
+	theme?: Theme,
 	padding?: {
 		top?: number,
 		right?: number,
@@ -8,10 +12,11 @@ interface IRowProps {
 }
 
 export default {
-	Row: ({ padding = {} }: IRowProps) =>`
+	Row: ({ padding = {}, theme }: IRowProps) =>`
 		display: flex;
 		flex-direction: row;
 		height: 100%;
 		padding: ${Object.values(padding).join('px ') || 0} !important;
+		background: ${darken(0.03, theme.bg) || 'transparent'};
 	`
 };

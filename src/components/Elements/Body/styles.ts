@@ -18,6 +18,10 @@ export default {
 		pre {
 			background: transparent !important;
 			font-size: 14px;
+
+			code {
+				white-space: pre-line !important;
+			}
 		}
 	`
 };

@@ -1,8 +1,11 @@
-import React, { Fragment, useState, Dispatch, SetStateAction } from 'react';
+import React, { Fragment, useState, Dispatch, SetStateAction, useContext } from 'react';
 import ReactTooltip from "react-tooltip";
 import { Key } from 'ts-keycode-enum';
+import { fromJS } from 'immutable';
 
 import { useShortcut } from '../../../../hooks';
+
+import { SnippetsContext } from '../../../../contexts';
 
 import { Theme } from '../../../../types/theme';
 import { Snippet } from '../../../../types/snippets';
@@ -26,6 +29,7 @@ interface IEditingProps {
 }
 
 const Editing = ({ theme, snippet, send }: IEditingProps) => {
+	const { snippets } = useContext(SnippetsContext);
 	const [draft, setDraft]: [Snippet, Dispatch<SetStateAction<Snippet>>] = useState(snippet);
 
 	const handleUpdate = (key: string, val: string) => {
@@ -39,7 +43,7 @@ const Editing = ({ theme, snippet, send }: IEditingProps) => {
 			shift: false,
 			meta: false,
 			callback: () => {
-				send({ type: Events.SELECTED, id: 0 });
+				send({ type: Events.SELECTED, id: snippets.first(fromJS({})).get('id') });
 			}
 		},
 		{

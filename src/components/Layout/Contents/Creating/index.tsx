@@ -1,4 +1,4 @@
-import React, { Fragment, useState, Dispatch, SetStateAction } from "react";
+import React, { Fragment, useState, Dispatch, SetStateAction, useContext } from "react";
 import ReactTooltip from "react-tooltip";
 import { Key } from "ts-keycode-enum";
 
@@ -18,6 +18,8 @@ import TextArea from "../../../Elements/TextArea";
 import Footer from "../../../Elements/Footer";
 import Button from "../../../Elements/Button";
 import { Save } from "../../../../assets/svg";
+import { SnippetsContext } from "../../../../contexts";
+import { fromJS } from "immutable";
 
 interface ICreatingProps {
   theme: Theme;
@@ -26,6 +28,7 @@ interface ICreatingProps {
 }
 
 const Creating = ({ theme, snippet, send }: ICreatingProps) => {
+  const { snippets } = useContext(SnippetsContext);
   const [draft, setDraft]: [Draft, Dispatch<SetStateAction<Draft>>] = useState(
     snippet
   );
@@ -36,7 +39,7 @@ const Creating = ({ theme, snippet, send }: ICreatingProps) => {
 	  shift: false,
 	  meta: false,
 	  callback: () => {
-		  send({ type: Events.SELECTED, id: 0 });
+		  send({ type: Events.SELECTED, id: snippets.first(fromJS({})).get('id') });
 	  }
 	},
 	{

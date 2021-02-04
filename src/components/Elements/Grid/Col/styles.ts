@@ -1,4 +1,3 @@
-import { darken } from 'polished';
 import { Theme } from "../../../../types/theme";
 
 interface IStylesProps {
@@ -12,6 +11,5 @@ export default {
 		flex-direction: column;
 		height: 100%;
 		width: ${width}%;
-		background: ${darken(0.03, theme.bg) || 'transparent'};
 	`
 };

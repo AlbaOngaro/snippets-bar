@@ -94,10 +94,10 @@ const Reading = ({ theme, snippet, send }: IReadingProps) => {
       <Body theme={theme} full>
         <SyntaxHighlighter
           language={snippet.get("lang", "")}
-		  style={style}
-        >
-			{snippet.get("contents", "")}
-		</SyntaxHighlighter>
+          style={style}
+            >
+          {snippet.get("contents", "")}
+        </SyntaxHighlighter>
         {snippet.get("lang") && (
           <Lang>
             {LANGUAGES.find((lang) => lang.value === snippet.get("lang")).label}
@@ -151,10 +151,10 @@ const Reading = ({ theme, snippet, send }: IReadingProps) => {
         >
           <Copy /> Copy
         </Button>
-		<Button
-			data-tip="⌘ + O"
-			onClick={() => send({ type: Events.EDIT, snippet: snippet })}
-		>
+        <Button
+          data-tip="⌘ + O"
+          onClick={() => send({ type: Events.EDIT, snippet: snippet })}
+        >
           <Edit /> Edit
         </Button>
         <Button data-tip="⌘ + D" onClick={() => setDeleting(true)}>

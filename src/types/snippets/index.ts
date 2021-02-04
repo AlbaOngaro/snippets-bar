@@ -32,5 +32,5 @@ export type Draft = DraftMap;
 
 export interface SnippetsContextInterface {
   snippets?: List<Snippet>;
-  filterSnippets(term: string): void;
+  filterSnippets(term: string): Promise<Snippet[]>;
 }

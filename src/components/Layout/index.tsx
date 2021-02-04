@@ -15,6 +15,7 @@ import Input from "../Elements/Input";
 import * as Contents from "./Contents";
 
 import styles from "./styles";
+import { fromJS } from "immutable";
 
 const List = styled.ul`
   ${styles.List}
@@ -38,9 +39,9 @@ const Layout = () => {
         const currentIndex = snippets.indexOf(current.context.snippet);
 
         if (currentIndex + 1 >= snippets.size) {
-          send({ type: Events.SELECTED, id: 0 });
+          send({ type: Events.SELECTED, id: snippets.first(fromJS({})).get('id') });
         } else {
-          send({ type: Events.SELECTED, id: currentIndex + 1 });
+          send({ type: Events.SELECTED, id: snippets.get(currentIndex + 1).get('id') });
         }
       },
     },
@@ -51,10 +52,11 @@ const Layout = () => {
       callback: () => {
         const currentIndex = snippets.indexOf(current.context.snippet);
 
+
         if (currentIndex - 1 < 0) {
-          send({ type: Events.SELECTED, id: snippets.size - 1 });
+          send({ type: Events.SELECTED, id: snippets.get(snippets.size - 1).get('id') });
         } else {
-          send({ type: Events.SELECTED, id: currentIndex - 1 });
+          send({ type: Events.SELECTED, id:  snippets.get(currentIndex - 1).get('id') });
         }
       },
     },
@@ -69,20 +71,23 @@ const Layout = () => {
               theme={theme}
               placeholder="search"
               clearable
-              onChange={(e) => filterSnippets(e.target.value)}
+              onChange={(e) => {
+                filterSnippets(e.target.value);
+                send({ type: Events.SELECTED, id: snippets.first(fromJS({})).get('id') });
+              }}
               onClear={() => filterSnippets("")}
             />
           </Header>
           <List theme={theme}>
             {snippets &&
-              snippets.map((snippet, idx) => (
+              snippets.map((snippet) => (
                 <Item
                   active={
                     snippet.get("id") === current.context.snippet.get("id")
                   }
                   theme={theme}
                   key={snippet.get("id")}
-                  onClick={() => send({ type: Events.SELECTED, id: idx })}
+                  onClick={() => send({ type: Events.SELECTED, id: snippet.get("id") })}
                 >
                   {snippet.get("name")}
                 </Item>
